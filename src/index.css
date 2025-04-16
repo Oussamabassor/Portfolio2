@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  /* VSCode One Dark Pro + Dracula Hybrid Theme */
+  --bg-main: #282c34; /* Main background */
+  --bg-panel: #1e2127; /* Module/panel background */
+  --accent-primary: #61dafb; /* React blue - Highlights, links */
+  --accent-secondary: #c678dd; /* Purple - Buttons, tags, hover */
+  --text-main: #abb2bf; /* Main body text */
+  --text-header: #e06c75; /* Section titles, important labels */
+  --text-success: #98c379; /* Positive UI states */
+  --text-warning: #e5c07b; /* Icons, playful elements */
+  --text-code: #56b6c2; /* Code highlights, badges */
+  --border-color: #4b5263; /* Subtle borders */
+
+  /* Typography */
+  --font-primary: 'Inter', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow: hidden; /* Prevent scrolling on the body */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Remove section padding, will be handled by modules */
+/* section {
+  padding: 100px 0;
+} */
+
+h1, h2, h3 {
+  margin-bottom: 20px;
+  color: var(--text-header);
+  font-family: var(--font-code); /* Use code font for headers */
+}
+
+h2 {
+  font-size: 2rem; /* Adjusted size */
+  text-align: center;
+  margin-bottom: 40px; /* Adjusted margin */
+}
+
+button {
+  padding: 10px 25px; /* Adjusted padding */
+  background-color: var(--accent-secondary);
+  color: var(--bg-panel);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem; /* Adjusted size */
+  font-family: var(--font-code);
+  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  font-weight: 700;
+}
+
+button:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-main);
+  transform: translateY(-2px);
+}
+
+/* Remove generic section title styling */
+/* .section-title { ... } */
+/* .section-title::after { ... } */
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+  color: var(--accent-secondary);
+}

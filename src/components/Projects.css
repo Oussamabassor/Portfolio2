@@ -1,0 +1,323 @@
+.projects-module {
+  position: relative;
+  /* Remove padding, handled by content area */
+  /* padding-bottom: 40px; */
+  display: flex; /* Use flex to separate header and content */
+  flex-direction: column;
+  height: 100%; /* Ensure module fills panel height */
+}
+
+/* NEW: Module Header Styles */
+.module-header {
+  display: flex;
+  justify-content: space-between; /* Pushes title and button apart */
+  align-items: center;
+  padding: 15px 20px; /* Adjust padding */
+  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(30, 33, 39, 0.7); /* Slightly transparent header */
+  flex-shrink: 0; /* Prevent header from shrinking */
+  position: relative; /* For potential absolute elements inside */
+}
+
+.module-title {
+  /* Adjust styles for header context */
+  text-align: left; /* Align title left */
+  color: var(--accent-primary);
+  margin-bottom: 0; /* Remove bottom margin */
+  font-size: 1.3rem; /* Adjust size */
+  padding-top: 0; /* Remove previous padding */
+  font-weight: 600;
+}
+
+.close-module-btn {
+  /* Adjust positioning relative to header */
+  position: relative; /* Change from absolute */
+  top: auto; /* Reset positioning */
+  left: auto; /* Reset positioning */
+  right: auto; /* Reset positioning */
+  /* Keep visual styles */
+  background: transparent; /* Make background transparent */
+  color: var(--text-main);
+  border: none; /* Remove border */
+  border-radius: 4px; /* Slight rounding */
+  width: 30px; /* Adjust size */
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1rem; /* Adjust icon size */
+  padding: 0;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  z-index: 10;
+}
+
+.close-module-btn:hover {
+  background-color: var(--text-header); /* Use error/header color for close hover */
+  color: var(--bg-panel);
+  transform: none;
+}
+
+/* NEW: Content Area Styles */
+.module-content-area {
+  padding: 30px 25px; /* Add padding around content */
+  overflow-y: auto; /* Enable scrolling ONLY for the content area */
+  flex-grow: 1; /* Allow content to fill remaining space */
+  /* Apply custom scrollbar styles here if not applied to .module-panel */
+}
+
+/* Custom scrollbar for content area */
+.module-content-area::-webkit-scrollbar {
+  width: 8px;
+}
+.module-content-area::-webkit-scrollbar-track {
+  background: transparent; /* Make track transparent */
+}
+.module-content-area::-webkit-scrollbar-thumb {
+  background-color: var(--border-color); /* Use border color */
+  border-radius: 4px;
+  border: 2px solid var(--bg-panel); /* Match panel background */
+}
+.module-content-area::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-secondary); /* Use accent on hover */
+}
+
+
+/* Filter Tabs Styling */
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px; /* Adjust margin */
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.filter-tab {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  padding: 10px 20px;
+  margin-bottom: -1px; /* Overlap border */
+  cursor: pointer;
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  position: relative;
+  transition: color var(--transition-speed) ease;
+  border-bottom: 3px solid transparent; /* Placeholder for active state */
+}
+
+.filter-tab:hover {
+  color: var(--accent-primary);
+  background: none; /* Override default button hover */
+  transform: none; /* Override default button hover */
+}
+
+.filter-tab.active {
+  color: var(--accent-secondary);
+  border-bottom-color: var(--accent-secondary); /* Highlight active tab */
+  font-weight: 700;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  /* Adjust columns for module view */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Project Card Redesign */
+.project-card {
+  background-color: var(--bg-main);
+  border-radius: 6px; /* Slightly sharper corners */
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.3, 0.96), box-shadow 0.4s ease; /* Enhanced easing */
+  display: flex;
+  flex-direction: column; /* Ensure content flows vertically */
+  position: relative; /* For keyboard hint positioning */
+}
+
+.project-card:hover {
+  transform: translateY(-5px) scale(1.02); /* More subtle hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-primary, #61dafb) / 50%; /* Add a subtle glow */
+}
+
+.project-img-container {
+  width: 100%;
+  height: 180px; /* Adjusted height */
+  overflow: hidden;
+  position: relative; /* For overlay positioning */
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Overlay Effect */
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 33, 39, 0.8); /* Dark overlay using --bg-panel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.05); /* Slight zoom on image hover */
+}
+
+.view-project-link {
+  color: var(--bg-panel);
+  background-color: var(--accent-primary);
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-family: var(--font-code);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.view-project-link:hover {
+  background-color: var(--accent-secondary);
+  color: var(--bg-main);
+}
+
+
+.project-info {
+  padding: 20px;
+  flex-grow: 1; /* Allow info section to grow */
+  display: flex;
+  flex-direction: column;
+}
+
+.project-info h3 {
+  margin-bottom: 10px;
+  color: var(--accent-primary); /* Use primary accent for title */
+  font-size: 1.2rem; /* Adjusted size */
+}
+
+.project-info p {
+  margin-bottom: 15px;
+  color: var(--text-main); /* Use main text color */
+  font-size: 0.9rem;
+  flex-grow: 1; /* Allow description to take available space */
+}
+
+/* Tech Badges */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto; /* Push badges to the bottom */
+}
+
+.tech-badge {
+  background-color: var(--border-color); /* Use border color for background */
+  padding: 4px 12px;
+  border-radius: 4px; /* Less rounded */
+  font-size: 0.75rem;
+  color: var(--text-code); /* Use code text color */
+  font-family: var(--font-code);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tech-badge:hover {
+  background-color: var(--accent-secondary);
+  transform: translateY(-2px);
+  color: var(--bg-main);
+}
+
+/* Keyboard Focus Enhancement */
+.project-card:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.project-card.focused {
+  /* Style applied via motion animation instead */
+}
+
+.keyboard-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-main);
+  color: var(--accent-primary);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Don't interfere with clicks */
+}
+
+.project-card:focus .keyboard-hint,
+.project-card.focused .keyboard-hint {
+  opacity: 0.9;
+}
+
+/* Loading placeholder for images */
+.project-img-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--bg-main) 0%, var(--bg-panel) 50%, var(--bg-main) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.project-img-container.loaded::before {
+  opacity: 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+@media (max-width: 992px) { /* Adjust breakpoint if needed */
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust minmax */
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-tabs {
+    gap: 5px; /* Add gap for smaller screens */
+    flex-wrap: wrap; /* Allow tabs to wrap */
+    border-bottom: none; /* Remove border when wrapped */
+  }
+  .filter-tab {
+    flex-grow: 1; /* Allow tabs to take space */
+    text-align: center;
+    border-bottom: 1px solid var(--border-color); /* Add border back for wrapped items */
+    margin-bottom: 5px;
+  }
+  .filter-tab.active {
+     border-bottom-color: var(--accent-secondary); /* Keep active highlight */
+  }
+  .projects-grid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+}

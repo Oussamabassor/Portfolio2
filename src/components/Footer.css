@@ -1,0 +1,43 @@
+.status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px; /* Adjust height */
+  background-color: var(--bg-panel); /* Match panel background */
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 0.8rem;
+  color: var(--text-main);
+  z-index: 1000; /* Ensure it's above content but below active panels if needed */
+  font-family: var(--font-code);
+}
+
+.status-left,
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust gap */
+}
+
+.separator {
+  color: var(--border-color);
+  margin: 0 5px;
+}
+
+.status-icon {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+  .status-left span:not(:first-child), .separator {
+     display: none; /* Hide extra info on small screens */
+  }
+   .status-right span {
+     display: none; /* Hide time text, keep icons */
+   }
+}

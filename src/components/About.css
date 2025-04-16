@@ -1,0 +1,560 @@
+.about-module {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(30, 33, 39, 0.7);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.module-title {
+  text-align: left;
+  color: var(--accent-primary);
+  margin-bottom: 0;
+  font-size: 1.3rem;
+  padding-top: 0;
+  font-weight: 600;
+}
+
+.close-module-btn {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  z-index: 10;
+}
+
+.close-module-btn:hover {
+  background-color: var(--text-header);
+  color: var(--bg-panel);
+  transform: none;
+}
+
+.module-content-area {
+  padding: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* VSCode Tabs Styling */
+.vscode-tabs {
+  display: flex;
+  background-color: var(--bg-main);
+  border-bottom: 1px solid var(--border-color);
+  height: 38px;
+  overflow-x: auto;
+}
+
+.vscode-tab {
+  background: transparent;
+  color: var(--text-main);
+  opacity: 0.7;
+  border: none;
+  padding: 0 16px;
+  height: 100%;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.vscode-tab:hover {
+  opacity: 0.9;
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: none;
+}
+
+.vscode-tab.active {
+  opacity: 1;
+  background-color: var(--bg-panel);
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.vscode-tab .tab-icon {
+  font-size: 0.9rem;
+  margin-right: 2px;
+}
+
+.tab-content {
+  padding: 25px;
+  height: calc(100% - 38px);
+  overflow-y: auto;
+}
+
+/* Profile Tab Styling */
+.about-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Hexagonal profile image */
+.hexagon-wrapper {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hexagon {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  background: var(--bg-main);
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hexagon:hover {
+  transform: translateY(-5px);
+  filter: drop-shadow(0 0 8px var(--accent-secondary));
+}
+
+.hexagon::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: transparent;
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  border: 2px solid var(--accent-secondary);
+  z-index: 1;
+}
+
+.hexagon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.hexagon:hover img {
+  transform: scale(1.1);
+}
+
+/* Status indicator */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 8px;
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--text-success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(152, 195, 121, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(152, 195, 121, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(152, 195, 121, 0); }
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Content cards */
+.content-card {
+  background-color: var(--bg-main);
+  border-radius: 6px;
+  padding: 20px;
+  border-left: 3px solid var(--accent-secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card h3 {
+  margin-top: 0;
+  color: var(--accent-primary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accent-icon {
+  font-size: 1.3rem;
+}
+
+.about-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Improved buttons */
+.glow-button {
+  background: linear-gradient(45deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+  color: var(--bg-panel);
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary), var(--accent-secondary));
+  z-index: -1;
+  border-radius: 7px;
+  background-size: 400%;
+  animation: glowing 3s ease-in-out infinite;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-icon {
+  font-size: 0.9rem;
+}
+
+.download-button.secondary {
+  background-color: transparent;
+  border: 2px solid var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+/* Terminal Tab Styling */
+.terminal-window {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.terminal-header {
+  background-color: var(--bg-panel);
+  color: var(--text-main);
+  padding: 8px 16px;
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.terminal-body {
+  padding: 16px;
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.prompt {
+  color: var(--accent-secondary);
+  margin-right: 8px;
+}
+
+.terminal-response {
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+/* File types in terminal */
+.file {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.file.frontend {
+  color: var(--accent-primary);
+}
+
+.file.backend {
+  color: var(--text-success);
+}
+
+.file.devops {
+  color: var(--text-warning);
+}
+
+/* Typing animation */
+.typing-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  background-color: var(--text-main);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+.cursor-line {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Code Tab Styling */
+.code-window {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-main);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+}
+
+.line-numbers {
+  width: 50px;
+  padding: 16px 12px;
+  background-color: var(--bg-panel);
+  border-right: 1px solid var(--border-color);
+  text-align: right;
+  color: #636d83;
+  user-select: none;
+}
+
+.line-number {
+  line-height: 1.5;
+  font-size: 0.85rem;
+}
+
+.code-block {
+  flex: 1;
+  padding: 16px;
+  line-height: 1.5;
+}
+
+/* JSON syntax highlighting */
+.json-container {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.code-comment {
+  color: #636d83;
+  margin-bottom: 5px;
+}
+
+.code-declaration {
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+.json-key {
+  color: var(--accent-secondary); /* Purple */
+}
+
+.json-string {
+  color: var(--text-success); /* Green */
+}
+
+.json-number {
+  color: var(--text-warning); /* Yellow */
+}
+
+.json-boolean {
+  color: var(--accent-primary); /* Blue */
+}
+
+.json-null {
+  color: var(--text-header); /* Red */
+}
+
+.code-function {
+  color: var(--text-main);
+  margin-top: 10px;
+}
+
+.function-keyword {
+  color: var(--accent-secondary);
+}
+
+.function-name {
+  color: var(--text-warning);
+}
+
+.code-function-body {
+  margin-left: 20px;
+  margin-bottom: 5px;
+  color: var(--text-main);
+}
+
+.method-call {
+  color: var(--text-warning);
+}
+
+.string-literal {
+  color: var(--text-success);
+}
+
+.return-statement {
+  color: var(--accent-secondary);
+}
+
+.code-execution {
+  margin-top: 10px;
+  color: var(--text-main);
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+
+  .hexagon-wrapper {
+    margin-bottom: 30px;
+  }
+
+  .vscode-tab {
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+
+  .vscode-tab .tab-icon {
+    margin-right: 0;
+  }
+}
+
+/* New: Skills grid styling */
+.skills-card {
+  padding-bottom: 15px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.skill-category h4 {
+  color: var(--accent-primary);
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-code);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: var(--bg-panel);
+  color: var(--text-code);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: var(--font-code);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border-left: 2px solid var(--accent-secondary);
+}
+
+.skill-tag:hover {
+  transform: translateY(-3px);
+  background-color: rgba(198, 120, 221, 0.2); /* var(--accent-secondary) with opacity */
+}
+
+/* Fun facts styling */
+.fun-facts-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fun-facts-list li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fun-icon {
+  color: var(--accent-primary);
+  font-size: 1.2rem;
+  min-width: 22px;
+}
+
+/* Terminal file colors */
+.file.project {
+  color: var(--accent-secondary);
+}
+
+.file.institution {
+  color: var(--text-warning);
+}
+
+.file.tools {
+  color: var(--text-header);
+}

@@ -1,0 +1,110 @@
+.skills-module {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+/* Use standard close button and module title styles (copy from Projects.css or define globally) */
+.close-module-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  z-index: 10;
+}
+
+.close-module-btn:hover {
+  background-color: var(--text-header);
+  color: var(--bg-panel);
+  transform: none;
+}
+
+.module-title {
+  text-align: center;
+  color: var(--accent-primary);
+  margin-bottom: 40px;
+  font-size: 1.8rem;
+  padding-top: 10px;
+}
+
+
+.skills-content {
+  display: flex;
+  gap: 40px; /* Adjust gap */
+  flex-direction: column; /* Stack text and bars vertically by default */
+}
+
+@media (min-width: 768px) { /* Apply side-by-side layout on wider screens */
+  .skills-content {
+    flex-direction: row;
+  }
+}
+
+.skills-text {
+  flex: 1;
+}
+
+.skills-text h3 {
+  color: var(--accent-secondary); /* Use theme color */
+  margin-bottom: 15px; /* Adjust margin */
+  font-size: 1.3rem;
+}
+
+.skills-text p {
+  line-height: 1.7; /* Adjust line height */
+  margin-bottom: 15px;
+  color: var(--text-main); /* Use theme color */
+}
+
+.skills-bars {
+  flex: 1;
+}
+
+.skill {
+  margin-bottom: 20px; /* Adjust margin */
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px; /* Adjust margin */
+  font-family: var(--font-code); /* Use code font */
+}
+
+.skill-name {
+  font-weight: 500;
+  color: var(--text-main); /* Use theme color */
+  font-size: 0.9rem;
+}
+
+.skill-percentage {
+  color: var(--accent-primary); /* Use theme color */
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.skill-bar {
+  height: 8px; /* Adjust height */
+  background-color: var(--bg-main); /* Use darker background */
+  border-radius: 4px; /* Adjust radius */
+  overflow: hidden;
+  border: 1px solid var(--border-color); /* Add subtle border */
+}
+
+.skill-level {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-secondary) 0%, var(--accent-primary) 100%); /* Gradient fill */
+  border-radius: 4px; /* Match parent */
+  /* transition: width 1s ease; */ /* Keep or use Framer Motion */
+}
