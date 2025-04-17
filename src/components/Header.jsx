@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import './Header.css';
-import { FaTimes, FaBars } from 'react-icons/fa';
+import { 
+  FaTimes, 
+  FaBars, 
+  FaCode,
+  FaFolder,
+  FaSearch,
+  FaGithub,
+  FaCog,
+  FaUserAlt,
+  FaChevronDown
+} from 'react-icons/fa';
 
 const Header = ({ setActiveModule }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,105 +36,92 @@ const Header = ({ setActiveModule }) => {
   };
 
   const handleNavClick = (moduleName) => {
-    // Ensure module activation works correctly
-    console.log(`Activating module: ${moduleName}`);
     setActiveModule(moduleName);
     setIsOpen(false);
   };
 
-  // Enhanced animation variants
-  const navItemVariants = {
-    initial: { opacity: 0.7, y: 0 },
-    hover: { 
-      opacity: 1, 
-      y: -3,
-      color: 'var(--accent-primary)',
-      transition: { 
-        duration: 0.2,
-        ease: 'easeOut'
-      }
-    },
-    tap: { 
-      scale: 0.95,
-      transition: { duration: 0.1 }
-    }
-  };
-  
-  const logoVariants = {
-    initial: { opacity: 1 },
-    hover: { 
-      scale: 1.05, 
-      color: 'var(--accent-secondary)',
-      textShadow: '0 0 8px rgba(198, 120, 221, 0.5)',
-      transition: { 
-        duration: 0.3,
-        ease: 'easeOut'
-      }
-    },
-    tap: { 
-      scale: 0.98,
-      transition: { duration: 0.1 }
-    }
-  };
-
   return (
-    <motion.header className="header">
-      <div className="container header-content">
-        <motion.div
-          className="logo"
-          initial="initial"
-          whileHover="hover"
-          whileTap="tap"
-          variants={logoVariants}
-        >
-          <button onClick={() => handleNavClick(null)} className="logo-button">
-            Oussama<span className="logo-dot">.</span>
-          </button>
-        </motion.div>
-        
-        <div className={`mobile-menu ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
-          {isOpen ? <FaTimes /> : <FaBars />}
+    <motion.header 
+      className={`header ${scrolled ? 'scrolled' : ''}`}
+      initial={{ y: -70 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
+      {/* VSCode-style top bar */}
+      <div className="vscode-header">
+        {/* Left side - Logo and menu */}
+        <div className="header-left">
+          <div className="logo" onClick={() => handleNavClick(null)}>
+            <span className="logo-icon">O</span>
+            <span className="logo-text">Oussama<span className="logo-dot">.</span>dev</span>
+          </div>
+          
+          <nav className="desktop-menu">
+            <div className="menu-item" onClick={() => handleNavClick('about')}>
+              <span>About</span>
+            </div>
+            <div className="menu-item" onClick={() => handleNavClick('skills')}>
+              <span>Skills</span>
+            </div>
+            <div className="menu-item" onClick={() => handleNavClick('projects')}>
+              <span>Projects</span>
+            </div>
+            <div className="menu-item" onClick={() => handleNavClick('contact')}>
+              <span>Contact</span>
+            </div>
+          </nav>
         </div>
         
-        <nav className={`nav ${isOpen ? 'active' : ''}`}>
-          <ul>
-            <motion.li>
-              <button 
-                onClick={() => handleNavClick('about')} 
-                className="nav-link"
-              >
-                <span className="nav-text">About</span>
-              </button>
-            </motion.li>
-            
-            <motion.li>
-              <button 
-                onClick={() => handleNavClick('skills')} 
-                className="nav-link"
-              >
-                <span className="nav-text">Skills</span>
-              </button>
-            </motion.li>
-            
-            <motion.li>
-              <button 
-                onClick={() => handleNavClick('projects')} 
-                className="nav-link"
-              >
-                <span className="nav-text">Projects</span>
-              </button>
-            </motion.li>
-            
-            <motion.li>
-              <button 
-                onClick={() => handleNavClick('contact')} 
-                className="nav-link"
-              >
-                <span className="nav-text">Contact</span>
-              </button>
-            </motion.li>
-          </ul>
-        </nav>
+        {/* Center - Tabs */}
+        <div className="header-center">
+          <div className="header-tab active">
+            <FaCode className="tab-icon" />
+            <span>portfolio.jsx</span>
+            <button className="tab-close">×</button>
+          </div>
+        </div>
+        
+        {/* Right side - Icons */}
+        <div className="header-right">
+          <div className="header-icon">
+            <FaSearch />
+          </div>
+          <div className="header-icon">
+            <FaGithub />
+          </div>
+          <div className="header-icon">
+            <FaCog />
+          </div>
+          <div className="header-icon user-icon">
+            <FaUserAlt />
+            <FaChevronDown className="dropdown-icon" />
+          </div>
+          
+          {/* Mobile menu toggle */}
+          <button className={`mobile-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+      </div>
+      
+      {/* Mobile dropdown menu */}
+      <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-item" onClick={() => handleNavClick('about')}>
+          <FaFolder className="mobile-menu-icon" />
+          <span>About</span>
+        </div>
+        <div className="mobile-menu-item" onClick={() => handleNavClick('skills')}>
+          <FaCode className="mobile-menu-icon" />
+          <span>Skills</span>
+        </div>
+        <div className="mobile-menu-item" onClick={() => handleNavClick('projects')}>
+          <FaFolder className="mobile-menu-icon" />
+          <span>Projects</span>
+        </div>
+        <div className="mobile-menu-item" onClick={() => handleNavClick('contact')}>
+          <FaUserAlt className="mobile-menu-icon" />
+          <span>Contact</span>
+        </div>
       </div>
     </motion.header>
   );

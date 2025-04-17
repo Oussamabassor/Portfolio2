@@ -4,13 +4,13 @@ import './Projects.css';
 import { 
   FaTimes, FaGithub, FaExternalLinkAlt, FaReact, FaLaravel, 
   FaNodeJs, FaJs, FaCss3, FaRegFolderOpen, FaRegFolder, 
-  FaLinkedin, FaCode, FaDatabase
+  FaLinkedin, FaCode, FaDatabase, FaArrowLeft
 } from 'react-icons/fa';
 
 const Projects = ({ closeModule }) => {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
-
+  
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,7 +109,7 @@ const Projects = ({ closeModule }) => {
   const filteredProjects = activeTab === 'all' 
     ? projects 
     : projects.filter(project => project.category.includes(activeTab));
-
+  
   return (
     <motion.section
       id="projects"
@@ -179,20 +179,19 @@ const Projects = ({ closeModule }) => {
         <div className="editor-area">
           {/* Editor Tabs */}
           <div className="editor-tabs">
-            <div className={`editor-tab ${activeTab === 'all' ? 'active' : ''}`} 
-                 onClick={() => setActiveTab('all')}>
+            <div className={`editor-tab ${activeTab === 'all' && !selectedProject ? 'active' : ''}`} 
+                 onClick={() => {setActiveTab('all'); setSelectedProject(null);}}>
               <FaCode className="tab-icon" /> AllProjects.jsx
-              {activeTab === 'all' && <span className="close-tab">×</span>}
             </div>
-            {activeTab !== 'all' && (
+            {activeTab !== 'all' && !selectedProject && (
               <div className="editor-tab active">
                 <FaReact className="tab-icon" /> {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}Projects.jsx
-                <span className="close-tab">×</span>
+                <span className="close-tab" onClick={() => setActiveTab('all')}>×</span>
               </div>
             )}
             {selectedProject && (
               <div className="editor-tab active">
-                <FaCode className="tab-icon" /> {selectedProject.title}.jsx
+                <FaCode className="tab-icon" /> {selectedProject.title.replace(/\s+/g, '')}.jsx
                 <span className="close-tab" onClick={() => setSelectedProject(null)}>×</span>
               </div>
             )}
@@ -209,34 +208,59 @@ const Projects = ({ closeModule }) => {
                   exit={{ opacity: 0 }}
                   className="tab-content projects-content"
                 >
-                  <div className="projects-header">
-                    <h2>My Projects</h2>
-                    <p>Interactive applications and websites I've developed</p>
+                  <div className="project-filters">
+                    <div className={`filter-button ${activeTab === 'all' ? 'active' : ''}`} 
+                         onClick={() => setActiveTab('all')}>
+                      All Projects
+                    </div>
+                    <div className={`filter-button ${activeTab === 'web' ? 'active' : ''}`}
+                         onClick={() => setActiveTab('web')}>
+                      Web
+                    </div>
+                    <div className={`filter-button ${activeTab === 'app' ? 'active' : ''}`}
+                         onClick={() => setActiveTab('app')}>
+                      Applications
+                    </div>
+                    <div className={`filter-button ${activeTab === 'ecommerce' ? 'active' : ''}`}
+                         onClick={() => setActiveTab('ecommerce')}>
+                      E-Commerce
+                    </div>
                   </div>
-                  
+
                   <div className="projects-grid">
                     {filteredProjects.map(project => (
                       <motion.div 
                         key={project.id}
                         className={`project-card ${project.featured ? 'featured' : ''}`}
                         variants={itemVariants}
-                        whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}
+                        whileHover={{ 
+                          y: -5,
+                          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)"
+                        }}
                         onClick={() => setSelectedProject(project)}
                       >
                         <div className="project-image">
                           <img src={project.image} alt={project.title} />
-                          {project.featured && <div className="featured-tag">Featured</div>}
+                          {project.featured && (
+                            <div className="featured-badge">Featured</div>
+                          )}
                         </div>
-                        <div className="project-content">
-                          <h3>{project.title}</h3>
-                          <p className="project-subtitle">{project.subtitle}</p>
-                          <div className="project-description">{project.description}</div>
-                          <div className="project-tech">
-                            {project.techIcons.map((icon, i) => (
-                              <span key={i} className="tech-icon">{icon}</span>
+                        <div className="project-info">
+                          <div className="project-header">
+                            <h3>{project.title}</h3>
+                            <div className="project-subtitle">{project.subtitle}</div>
+                          </div>
+                          <p className="project-desc">{project.description}</p>
+                          <div className="project-tech-stack">
+                            {project.techIcons.map((icon, idx) => (
+                              <span key={idx} className="tech-icon">{icon}</span>
                             ))}
                           </div>
-                          <button className="view-project-btn">View Details</button>
+                          <div className="project-footer">
+                            <button className="view-details-btn">
+                              View Details
+                            </button>
+                          </div>
                         </div>
                       </motion.div>
                     ))}
@@ -244,74 +268,105 @@ const Projects = ({ closeModule }) => {
                 </motion.div>
               ) : (
                 <motion.div 
-                  key={selectedProject.id}
+                  key="project-detail"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="tab-content project-detail-content"
                 >
-                  <div className="project-detail-header">
-                    <button 
-                      className="back-button"
-                      onClick={() => setSelectedProject(null)}
-                    >
-                      ← Back to Projects
-                    </button>
-                  </div>
+                  <button className="back-button" onClick={() => setSelectedProject(null)}>
+                    <FaArrowLeft /> Back to Projects
+                  </button>
                   
-                  <div className="project-hero">
-                    <img src={selectedProject.image} alt={selectedProject.title} className="project-hero-image" />
-                    <div className="project-hero-overlay">
-                      <h1>{selectedProject.title}</h1>
-                      <p>{selectedProject.subtitle}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="project-detail-content">
-                    <div className="project-section">
-                      <h2>Overview</h2>
-                      <p>{selectedProject.longDescription}</p>
-                    </div>
-                    
-                    <div className="project-section technologies">
-                      <h2>Technologies Used</h2>
-                      <div className="tech-tags">
-                        {selectedProject.technologies.map((tech, i) => (
-                          <span key={i} className="tech-tag">{tech}</span>
-                        ))}
+                  <div className="project-detail">
+                    <div className="project-detail-header">
+                      <div className="project-detail-image">
+                        <img src={selectedProject.image} alt={selectedProject.title} />
+                        <div className="image-overlay"></div>
+                      </div>
+                      <div className="project-detail-title-area">
+                        <h1>{selectedProject.title}</h1>
+                        <div className="project-detail-subtitle">{selectedProject.subtitle}</div>
+                        <div className="project-links">
+                          <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="project-link live">
+                            <FaExternalLinkAlt /> Live Preview
+                          </a>
+                          <a href={selectedProject.repoLink} target="_blank" rel="noopener noreferrer" className="project-link repo">
+                            <FaGithub /> View Code
+                          </a>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="project-columns">
-                      <div className="project-section features">
-                        <h2>Key Features</h2>
-                        <ul className="feature-list">
-                          {selectedProject.features.map((feature, i) => (
-                            <li key={i}>{feature}</li>
-                          ))}
-                        </ul>
+                    <div className="project-detail-body">
+                      <div className="detail-section overview">
+                        <h2>Overview</h2>
+                        <p>{selectedProject.longDescription}</p>
                       </div>
                       
-                      <div className="project-section challenges">
-                        <h2>Challenges & Solutions</h2>
-                        <div className="challenge">
-                          <h3>Challenge:</h3>
-                          <p>{selectedProject.challenges}</p>
-                        </div>
-                        <div className="solution">
-                          <h3>Solution:</h3>
-                          <p>{selectedProject.solutions}</p>
+                      <div className="detail-section techs">
+                        <h2>Technologies</h2>
+                        <div className="tech-tags">
+                          {selectedProject.technologies.map((tech, idx) => (
+                            <span key={idx} className="tech-tag">{tech}</span>
+                          ))}
                         </div>
                       </div>
-                    </div>
-                    
-                    <div className="project-links">
-                      <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="project-link live">
-                        <FaExternalLinkAlt /> Live Demo
-                      </a>
-                      <a href={selectedProject.repoLink} target="_blank" rel="noopener noreferrer" className="project-link repo">
-                        <FaGithub /> View Code
-                      </a>
+                      
+                      <div className="detail-columns">
+                        <div className="detail-section features">
+                          <h2>Key Features</h2>
+                          <ul className="feature-list">
+                            {selectedProject.features.map((feature, idx) => (
+                              <li key={idx}>{feature}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <div className="detail-section challenges">
+                          <h2>Challenges & Solutions</h2>
+                          <div className="challenge-block">
+                            <h3>The Challenge</h3>
+                            <p>{selectedProject.challenges}</p>
+                          </div>
+                          <div className="solution-block">
+                            <h3>My Solution</h3>
+                            <p>{selectedProject.solutions}</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="detail-section code-preview">
+                        <h2>Code Snippet</h2>
+                        <div className="code-block">
+                          <div className="code-header">
+                            <span>App.jsx</span>
+                          </div>
+                          <pre className="code-content">
+                            <code>
+{`import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import Auth from './components/Auth';
+import { AuthProvider } from './contexts/AuthContext';
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Auth />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}`}
+                            </code>
+                          </pre>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -321,7 +376,7 @@ const Projects = ({ closeModule }) => {
           
           {/* Editor Status Bar */}
           <div className="status-bar">
-            <div className="status-item">Projects</div>
+            <div className="status-item">Portfolio</div>
             <div className="status-item">Ln 42, Col 18</div>
             <div className="status-item">Spaces: 2</div>
             <div className="status-item">JavaScript React</div>
