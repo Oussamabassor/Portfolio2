@@ -1,0 +1,32 @@
+/* Fix background animation to not interfere with content */
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Keep it at the back */
+  pointer-events: none; /* Don't capture mouse events */
+  opacity: 0.5; /* Make it less prominent */
+}
+
+/* Ensure background doesn't block content */
+.gradient-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(97, 218, 251, 0.1) 0%,
+    rgba(30, 33, 39, 0) 60%
+  ),
+  radial-gradient(
+    ellipse at bottom right,
+    rgba(198, 120, 221, 0.1) 0%,
+    rgba(30, 33, 39, 0) 60%
+  );
+}

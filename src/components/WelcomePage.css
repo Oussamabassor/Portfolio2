@@ -1,603 +1,136 @@
+/* Fix scrolling and content visibility */
 .welcome-container {
+  width: 100%;
+  height: auto; /* Allow height to grow */
+  min-height: calc(100vh - 70px);
+  overflow-y: visible; /* Allow scrolling */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 20px 0 50px; /* Add some padding */
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10;
+}
+
+.welcome-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Hero section styling */
+.hero-section {
+  width: 100%;
+  padding: 50px 0;
   text-align: center;
-  padding: 40px 20px;
-  color: var(--text-main);
-  height: 100%;
-  /* Remove animation here, handled by motion components */
-  /* animation: fadeIn 0.8s ease-out; */
+  visibility: visible !important;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.welcome-header {
-  margin-bottom: 30px;
-}
-
-/* Optional Logo Style */
-/* .welcome-logo {
-  width: 80px;
-  height: 80px;
+.hero-title {
+  font-size: 3rem;
+  line-height: 1.2;
   margin-bottom: 20px;
-  opacity: 0.8;
-} */
-
-.welcome-title {
-  font-family: var(--font-code);
-  font-size: 2.8rem;
-  color: var(--accent-primary);
-  margin-bottom: 10px;
-  font-weight: 700;
-  display: inline-block; /* Needed for motion layout */
+  color: var(--text-main);
+  visibility: visible !important;
 }
 
-.welcome-title span { /* Style individual characters if needed */
-  display: inline-block; /* Needed for motion transforms */
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: var(--text-main);
+  opacity: 0.85;
 }
 
-.title-bracket {
+.highlight-text {
   color: var(--accent-secondary);
-  opacity: 0.7;
+  font-weight: 600;
 }
 
-.welcome-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-main);
-  opacity: 0.8;
-}
-
-.welcome-intro {
-  max-width: 600px;
-  margin-bottom: 40px;
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-/* Fake Terminal Line Styles */
-.fake-terminal-line {
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
   margin-top: 20px;
-  font-family: var(--font-code);
+}
+
+.primary-btn, .secondary-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--bg-main);
+  border: none;
+  box-shadow: 0 8px 20px rgba(97, 218, 251, 0.2);
+}
+
+.secondary-btn {
+  background: transparent;
   color: var(--text-main);
-  opacity: 0.7;
-  font-size: 0.9rem;
-}
-.fake-terminal-line .prompt {
-  color: var(--accent-primary);
-  margin-right: 8px;
-}
-.fake-terminal-line .command {
-  color: var(--text-success); /* Use success color for command */
-}
-.blinking-cursor {
-  display: inline-block;
-  background-color: var(--text-main);
-  width: 8px;
-  height: 1em; /* Match line height */
-  margin-left: 5px;
-  animation: blink 1s infinite;
-  vertical-align: text-bottom; /* Align with text */
-}
-/* Re-use blink animation if defined globally, otherwise define here */
-@keyframes blink {
-  0%, 100% { opacity: 1 }
-  50% { opacity: 0 }
+  border: 1px solid var(--border-color);
 }
 
-
-.quick-actions {
+/* Fix navigation menu */
+.nav-menu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-}
-
-.action-button {
-  /* Use global button styles and add specifics */
-  background-color: var(--bg-panel);
-  color: var(--accent-primary);
-  border: 1px solid var(--border-color);
-  padding: 12px 25px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-  position: relative; /* For pseudo-element */
-  overflow: hidden; /* Hide pseudo-element overflow */
-  z-index: 1; /* Ensure text is above pseudo-element */
-}
-
-/* Enhanced Hover Effect */
-.action-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%; /* Start off-screen */
+  padding: 40px 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
-  transition: left 0.4s ease;
-  z-index: -1; /* Place behind text */
-  opacity: 0.6;
+  visibility: visible !important;
 }
 
-.action-button:hover::before {
-  left: 100%; /* Move across the button */
-}
-
-.action-button:hover {
-  /* Keep existing hover styles */
-  background-color: var(--accent-primary);
-  color: var(--bg-main);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(97, 218, 251, 0.3); /* Glow effect */
-}
-
-.action-button:hover .action-icon {
-   transform: scale(1.1) rotate(-5deg); /* Slight icon animation */
-   transition: transform 0.3s ease;
-}
-
-.action-icon {
-  font-size: 1.1rem;
-  transition: transform 0.3s ease; /* Add transition for hover */
-}
-
-.welcome-footer-graphic {
-  margin-top: 50px;
-  width: 100px;
-  height: 5px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 3px;
-  /* Opacity handled by motion */
-  transform-origin: left; /* Animate scale from left */
-}
-
-@media (max-width: 768px) {
-  .welcome-title {
-    font-size: 2.2rem;
-  }
-  .welcome-subtitle {
-    font-size: 1rem;
-  }
-  .quick-actions {
-    gap: 15px;
-  }
-  .action-button {
-    padding: 10px 20px;
-    font-size: 0.85rem;
-  }
-}
-
-/* Improved terminal positioning and visibility */
-.modern-terminal {
-  width: calc(100% - 40px); /* Ensure there's some margin on sides */
-  max-width: 750px; /* Slightly reduced max-width */
-  margin: 30px auto 50px;
-  position: relative;
-  z-index: 100; /* Higher z-index to stay above other content */
-}
-
-/* Reset position button */
-.reset-position-btn {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  background-color: var(--bg-panel);
-  color: var(--accent-primary);
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(30, 33, 39, 0.8);
   border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  z-index: 101;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
-}
-
-.reset-position-btn:hover {
-  background-color: var(--accent-primary);
-  color: var(--bg-panel);
-  transform: translateY(-2px);
-}
-
-/* Enhanced drag indicators */
-.drag-indicator {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-right: 6px;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.drag-dot {
-  width: 4px;
-  height: 4px;
-  background-color: var(--accent-secondary);
-  border-radius: 50%;
-}
-
-.terminal-container:hover .drag-indicator {
-  opacity: 1;
-}
-
-/* Improved drag hint */
-.drag-hint {
-  position: absolute;
-  right: 60px;
-  font-size: 0.75rem;
-  font-family: var(--font-primary);
-  background-color: rgba(97, 218, 251, 0.15);
-  padding: 3px 10px;
   border-radius: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(-5px);
-  pointer-events: none;
-  color: var(--accent-primary);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.terminal-container:hover .drag-hint {
-  opacity: 0.9;
-  transform: translateY(0);
-}
-
-/* Add some shadow when dragging */
-.terminal-container:active {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
-              0 0 10px rgba(97, 218, 251, 0.3);
-}
-
-.terminal-body {
-  padding: 20px 15px;
-  font-family: var(--font-code);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  height: 450px; /* Increased height */
-  max-height: 60vh;
-  overflow-y: auto;
-  color: var(--text-main);
-  background-color: rgba(40, 44, 52, 0.97); /* Slightly softer background */
-}
-
-/* Custom scrollbar for terminal */
-.terminal-body::-webkit-scrollbar {
-  width: 6px;
-}
-.terminal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-.terminal-body::-webkit-scrollbar-thumb {
-  background-color: var(--border-color);
-  border-radius: 3px;
-}
-.terminal-body::-webkit-scrollbar-thumb:hover {
-  background-color: var(--accent-secondary);
-}
-
-.terminal-line {
-  margin-bottom: 8px;
-  display: flex;
-}
-
-.prompt {
-  color: var(--accent-secondary);
-  margin-right: 8px;
-}
-
-.terminal-response {
-  color: var(--text-main);
-  margin-bottom: 16px;
-}
-
-/* Enhanced services styling */
-.services-header, .services-footer {
-  color: var(--accent-primary);
-  margin: 20px 0;
-  font-weight: bold;
-  position: relative;
-  padding: 5px 0;
-  opacity: 0.9;
-  width: 100%;
-}
-
-.service-entry {
-  margin-bottom: 20px;
-  padding: 3px 0;
-  animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.service-entry.currently-typing {
-  border-left: 2px solid var(--accent-secondary);
-  padding-left: 10px;
-}
-
-/* Updated service display area for title-only */
-.service-display {
-  min-height: 80px; /* Reduced height for title-only display */
-  margin: 20px auto; /* Center the display */
-  padding: 15px;
-  border-radius: 6px;
-  background-color: rgba(30, 33, 39, 0.5);
-  border: 1px solid var(--border-color);
-  position: relative;
-  overflow: visible; /* Allow content overflow */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.service-display.title-only {
-  background: linear-gradient(to bottom right, rgba(30, 33, 39, 0.7), rgba(40, 44, 52, 0.7));
-}
-
-.service-display::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
-}
-
-/* Enhanced service title styling for title-only display */
-.service-title {
-  color: var(--accent-secondary);
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 3px;
-  display: block;
-  letter-spacing: 0.5px;
-  font-size: 1.2rem; /* Larger font size */
-  background-color: rgba(198, 120, 221, 0.1);
-  position: relative;
-  text-align: center;
-  max-width: 90%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-left: 3px solid var(--accent-secondary);
-}
-
-.service-description {
-  color: #abb2bf;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  padding: 10px 10px 10px 15px;
-  border-left: 2px solid var(--accent-primary);
-  margin-left: 5px;
-  background-color: rgba(97, 218, 251, 0.05);
-  border-radius: 0 3px 3px 0;
-  position: relative;
-}
-
-/* Animated cursor for typing effect */
-.cursor {
-  display: inline-block;
-  width: 7px;
-  height: 16px;
-  background-color: var(--accent-primary);
-  margin-left: 2px;
-  vertical-align: middle;
-  opacity: 0;
-  border-radius: 1px;
-  box-shadow: 0 0 5px rgba(97, 218, 251, 0.5);
-}
-
-.cursor.visible {
-  opacity: 1;
-}
-
-/* Minimal Terminal Design */
-.minimal-terminal {
-  width: 90%;
-  max-width: 600px;
-  margin: 30px auto 50px;
-  background-color: #282c34;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-  cursor: move;
-  position: relative;
-  z-index: 100;
-  border: 1px solid rgba(97, 218, 251, 0.2);
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  background: linear-gradient(to right, #1e2127, #282c34);
-  border-bottom: 1px solid #4b5263;
-}
-
-.terminal-buttons {
-  display: flex;
-  gap: 6px;
-}
-
-.terminal-button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-.terminal-button:hover {
-  transform: scale(1.2);
-}
-
-.terminal-button.close {
-  background-color: #ff5f56;
-}
-
-.terminal-button.minimize {
-  background-color: #ffbd2e;
-}
-
-.terminal-button.maximize {
-  background-color: #27c93f;
-}
-
-.terminal-title {
-  flex: 1;
-  text-align: center;
-  font-family: var(--font-code);
-  color: var(--text-main);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-}
-
-.drag-handle {
-  width: 30px;
-  height: 6px;
-  background-color: rgba(75, 82, 99, 0.7);
-  border-radius: 3px;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.6;
-  transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-.minimal-terminal:hover .drag-handle {
-  opacity: 1;
-  background-color: var(--accent-secondary);
-}
-
-.terminal-body {
-  padding: 15px;
-  font-family: var(--font-code);
-  font-size: 0.9rem;
-  height: 300px;
-  max-height: 50vh;
-  overflow-y: auto;
-  background-color: #282c34;
-}
-
-.terminal-content {
-  padding: 5px;
-}
-
-.reset-position-btn {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: var(--bg-panel);
-  color: var(--accent-primary);
-  border: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  z-index: 101;
-  font-size: 0.8rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  padding: 0;
-}
-
-.reset-position-btn:hover {
-  background-color: var(--accent-primary);
-  color: var(--bg-panel);
-}
-
-/* Service Display */
-.service-display {
-  min-height: 50px;
-  margin: 20px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.service-title {
-  color: var(--accent-secondary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-align: center;
-  padding: 10px 15px;
-  margin: 0 auto;
-  max-width: 90%;
-  position: relative;
-  animation: fadeIn 0.3s ease;
-  background-color: rgba(198, 120, 221, 0.1);
-  border-radius: 5px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Status info */
-.status-label {
-  color: var(--accent-secondary);
-  margin-right: 5px;
-}
-
-.status-value, .email-value {
-  color: var(--accent-primary);
-}
-
-.email-value {
-  text-decoration: underline;
-  text-decoration-color: rgba(97, 218, 251, 0.3);
-}
-
-/* Terminal text styling */
-.terminal-line {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.prompt {
-  color: var(--accent-secondary);
-}
-
-.terminal-response {
+  transition: all 0.3s ease;
   color: var(--text-main);
-  margin-bottom: 15px;
-  line-height: 1.5;
+  visibility: visible !important;
 }
 
-/* Cursor animation */
-.cursor {
-  display: inline-block;
-  width: 7px;
-  height: 16px;
-  background-color: var(--accent-primary);
-  margin-left: 2px;
-  vertical-align: middle;
-  opacity: 0;
+/* Make sure gradient text is visible */
+.gradient-text {
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.cursor.visible {
-  opacity: 1;
+/* Add these at the end to override any problematic styles */
+body, html {
+  overflow-y: auto !important;
+}
+
+.no-scroll {
+  overflow: auto !important;
 }

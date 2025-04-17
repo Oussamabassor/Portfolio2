@@ -1,16 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './About.css';
-import { FaTimes, FaCode, FaTerminal, FaDownload, FaCoffee, FaGamepad, FaTv } from 'react-icons/fa';
+import { 
+  FaTimes, FaCode, FaTerminal, FaDownload, 
+  FaCoffee, FaGamepad, FaTv, FaTools, FaCheck, FaUser
+} from 'react-icons/fa';
 
 const About = ({ closeModule }) => {
+  const [imageError, setImageError] = useState(false);
   const [activeTab, setActiveTab] = useState('profile');
   const [typedText, setTypedText] = useState('');
   const [typingComplete, setTypingComplete] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(true);
 
-  // Bio text for terminal animation
+  const profileImagePath = '/profile.jpg';
   const bioText = "Hey there! I'm Oussama (aka Thorfinn), a passionate full-stack web developer who loves building modern and interactive digital experiences. I turn creative ideas into real-world applications with a unique visual and functional flair.";
   
+  // Services data
+  const services = [
+    {
+      id: 1,
+      title: "Custom Website Development",
+      description: "I build responsive, SEO-friendly websites from scratch using modern technologies like React, Laravel, and Tailwind CSS. Perfect for businesses, startups, and personal brands."
+    },
+    {
+      id: 2,
+      title: "Full-Stack Web Applications",
+      description: "I create fully functional web apps with both front-end and back-end integration, using React, Express/Laravel, and MySQL. From dashboards to booking systems, I've got it covered."
+    },
+    {
+      id: 3,
+      title: "UI/UX Design & Animation",
+      description: "I design sleek, user-focused interfaces with modern aesthetics like neomorphism and glassmorphism, enhanced by smooth animations using Framer Motion and custom hover effects."
+    },
+    {
+      id: 4,
+      title: "Landing Page Creation",
+      description: "I build stunning, high-converting landing pages optimized for marketing campaigns, product launches, or personal branding — fast-loading and mobile-first."
+    },
+    {
+      id: 5,
+      title: "Portfolio & Personal Branding",
+      description: "I develop interactive, visually engaging portfolios for developers, designers, or creatives who want to stand out online."
+    },
+    {
+      id: 6,
+      title: "E-Commerce Website Development",
+      description: "I create scalable e-commerce platforms with product pages, cart systems, user authentication, and payment integrations. Built to perform and convert."
+    }
+  ];
+
   // Terminal typing animation
   useEffect(() => {
     if (activeTab === 'terminal') {
@@ -24,7 +63,6 @@ const About = ({ closeModule }) => {
           setTypingComplete(true);
         }
       }, 30);
-      
       return () => clearInterval(typingInterval);
     }
   }, [activeTab]);
@@ -36,6 +74,14 @@ const About = ({ closeModule }) => {
       setTypingComplete(false);
     }
   }, [activeTab]);
+  
+  // Cursor blink effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setCursorVisible(prev => !prev);
+    }, 530);
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   // Person object for code view
   const personObject = {
@@ -83,7 +129,7 @@ const About = ({ closeModule }) => {
     }
   };
 
-  // Variants for staggering children
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -103,19 +149,38 @@ const About = ({ closeModule }) => {
       transition: { type: 'spring', stiffness: 100, damping: 12 },
     },
   };
+  
+  const serviceItemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: item => ({
+      opacity: 1,
+      y: 0,
+      transition: { 
+        type: 'spring', 
+        stiffness: 80, 
+        damping: 12,
+        delay: item.id * 0.1
+      }
+    }),
+    hover: {
+      y: -5,
+      x: 5,
+      backgroundColor: "rgba(97, 218, 251, 0.08)",
+      boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+      transition: { type: 'spring', stiffness: 300, damping: 10 }
+    }
+  };
 
   // Render JSON with syntax highlighting
   const renderJSONWithHighlighting = (obj) => {
     const json = JSON.stringify(obj, null, 2);
     return json.split('\n').map((line, index) => {
-      // Highlight keys, values, and punctuation
       const highlightedLine = line
         .replace(/(".*?"):/g, '<span class="json-key">$1</span>:')
         .replace(/:\s*(".*?")([,]?)/g, ': <span class="json-string">$1</span>$2')
         .replace(/:\s*(\d+)([,]?)/g, ': <span class="json-number">$1</span>$2')
         .replace(/true|false/g, '<span class="json-boolean">$&</span>')
         .replace(/null/g, '<span class="json-null">null</span>');
-        
       return <div key={index} dangerouslySetInnerHTML={{ __html: highlightedLine }} />;
     });
   };
@@ -126,38 +191,37 @@ const About = ({ closeModule }) => {
       className="about-module"
       variants={containerVariants}
       initial="hidden"
-      animate="visible"
-    >
+      animate="visible">
       <div className="module-header">
         <motion.h2 variants={itemVariants} className="module-title">About Me</motion.h2>
         <button onClick={closeModule} className="close-module-btn">
           <FaTimes />
         </button>
       </div>
-
       <div className="module-content-area">
         {/* VSCode-style tabs */}
         <div className="vscode-tabs">
           <button
             className={`vscode-tab ${activeTab === 'profile' ? 'active' : ''}`}
-            onClick={() => setActiveTab('profile')}
-          >
+            onClick={() => setActiveTab('profile')}>
             <span className="tab-icon">📋</span> Profile
           </button>
           <button
+            className={`vscode-tab ${activeTab === 'services' ? 'active' : ''}`}
+            onClick={() => setActiveTab('services')}>
+            <FaTools className="tab-icon" /> Services
+          </button>
+          <button
             className={`vscode-tab ${activeTab === 'terminal' ? 'active' : ''}`}
-            onClick={() => setActiveTab('terminal')}
-          >
+            onClick={() => setActiveTab('terminal')}>
             <FaTerminal className="tab-icon" /> Terminal
           </button>
           <button
             className={`vscode-tab ${activeTab === 'code' ? 'active' : ''}`}
-            onClick={() => setActiveTab('code')}
-          >
+            onClick={() => setActiveTab('code')}>
             <FaCode className="tab-icon" /> oussama.json
           </button>
         </div>
-
         {/* Tab Content */}
         <AnimatePresence mode="wait">
           {activeTab === 'profile' && (
@@ -169,11 +233,21 @@ const About = ({ closeModule }) => {
               className="tab-content profile-content"
             >
               <div className="about-content">
-                {/* Profile image */}
+                {/* Simplified profile image approach */}
                 <motion.div variants={itemVariants} className="about-image">
                   <div className="hexagon-wrapper">
                     <div className="hexagon">
-                      <img src="https://via.placeholder.com/300x300/282c34/abb2bf?text=Oussama" alt="Profile" />
+                      {!imageError ? (
+                        <img 
+                          src={profileImagePath} 
+                          alt="Profile" 
+                          onError={() => setImageError(true)}
+                        />
+                      ) : (
+                        <div className="profile-fallback">
+                          <FaUser className="fallback-icon" />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="status-indicator">
@@ -311,6 +385,69 @@ const About = ({ closeModule }) => {
             </motion.div>
           )}
 
+          {activeTab === 'services' && (
+            <motion.div 
+              key="services"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="tab-content services-content"
+            >
+              <div className="services-container">
+                <motion.div 
+                  className="services-header"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h3 className="services-title">My Services</h3>
+                  <p className="services-subtitle">Here's what I can do for you</p>
+                </motion.div>
+
+                <div className="services-grid">
+                  {services.map(service => (
+                    <motion.div 
+                      key={service.id}
+                      className="service-card"
+                      custom={service}
+                      variants={serviceItemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      whileHover="hover"
+                    >
+                      <div className="service-card-header">
+                        <span className="service-number">{String(service.id).padStart(2, '0')}</span>
+                        <h4 className="service-title">{service.title}</h4>
+                      </div>
+                      <p className="service-description">{service.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <motion.div 
+                  className="services-cta"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  <div className="services-availability">
+                    <FaCheck className="availability-icon" />
+                    <span>Available for new projects</span>
+                  </div>
+                  
+                  <motion.button
+                    className="contact-cta-button"
+                    onClick={() => window.location.href = "#contact"}
+                    whileHover={{ scale: 1.05, y: -3 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    Discuss Your Project
+                  </motion.button>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+
           {activeTab === 'terminal' && (
             <motion.div 
               key="terminal"
@@ -334,7 +471,7 @@ const About = ({ closeModule }) => {
                   </div>
                   <div className="terminal-response typing-text">
                     {typedText}
-                    {!typingComplete && <span className="cursor">|</span>}
+                    {cursorVisible && <span className="cursor">|</span>}
                   </div>
                   
                   {typingComplete && (
@@ -413,6 +550,7 @@ const About = ({ closeModule }) => {
                   <div className="code-comment">// Function to contact me</div>
                   <div className="code-function">
                     <span className="function-keyword">function</span> <span className="function-name">contactOussama</span>() {'{'}
+
                   </div>
                   <div className="code-function-body">
                     &nbsp;&nbsp;console.<span className="method-call">log</span>(<span className="string-literal">"Send me an email at: "</span> + developer.contact.email);

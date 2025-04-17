@@ -1,237 +1,243 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  FaTimes, FaEnvelope, FaLinkedin, FaGithub, 
+  FaTwitter, FaMapMarkerAlt, FaPaperPlane 
+} from 'react-icons/fa';
 import './Contact.css';
-import { FaTimes, FaMapMarkerAlt, FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const Contact = ({ closeModule }) => {
+  // Form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
-  const [focused, setFocused] = useState({}); // Track focused fields
-  const [validFields, setValidFields] = useState({}); // Track field validation
-  const [status, setStatus] = useState('');
   
-  // Validate fields on change
-  useEffect(() => {
-    const newValidFields = {};
-    
-    if (formData.name) {
-      newValidFields.name = formData.name.length >= 2;
-    }
-    
-    if (formData.email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      newValidFields.email = emailRegex.test(formData.email);
-    }
-    
-    if (formData.subject) {
-      newValidFields.subject = formData.subject.length >= 3;
-    }
-    
-    if (formData.message) {
-      newValidFields.message = formData.message.length >= 10;
-    }
-    
-    setValidFields(newValidFields);
-  }, [formData]);
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    submitted: false,
+    error: false,
+    message: ''
+  });
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-   };
+  };
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus('sending');
-    console.log('Form data:', formData); // Log form data
-
-    // Replace with actual form submission logic (e.g., using Formspree, Netlify Forms, or backend)
-    // Example using a timeout to simulate
+    setFormStatus({ ...formStatus, submitting: true });
+    
+    // Simulate form submission (replace with actual API call)
     setTimeout(() => {
-      // Assume success for now
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
-
-      // Optionally hide success message after a few seconds
-      setTimeout(() => setStatus(''), 3000);
-
+      // Success scenario
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        error: false,
+        message: 'Your message has been sent successfully! I will get back to you soon.'
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setFormStatus({
+          submitting: false,
+          submitted: false,
+          error: false,
+          message: ''
+        });
+      }, 5000);
     }, 1500);
-   };
-
-
-  // Variants for staggering children
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1 } },
   };
 
-  // Variants for individual items (fade in + slide up/left/right)
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100, damping: 12 },
+    },
   };
-  const formItemVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  };
-   const infoItemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  };
-
 
   return (
-    <motion.section id="contact" className="contact-module">
-      <button onClick={closeModule} className="close-module-btn">
-        <FaTimes />
-      </button>
-
-      <motion.h2 variants={itemVariants} className="module-title">Get In Touch</motion.h2>
-
+    <motion.section
+      className="contact-module"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className="module-header">
+        <motion.h2 variants={itemVariants} className="module-title">Contact Me</motion.h2>
+        <button onClick={closeModule} className="close-module-btn">
+          <FaTimes />
+        </button>
+      </div>
 
       <div className="module-content-area">
-        <div className="contact-content">
-          {/* Animate Contact Info section */}
-          <motion.div className="contact-info" variants={containerVariants}>
-            <motion.h3 variants={infoItemVariants}>Contact Information</motion.h3>
-            <motion.p variants={infoItemVariants} className="contact-intro">
-              Interested in collaborating or have a question? Feel free to reach out!
-            </motion.p>
-            {/* Stagger info items */}
-            <motion.div variants={infoItemVariants} className="info-item">
-              <FaMapMarkerAlt className="info-icon" />
-              <div><h4>Location:</h4><p>New York City, NY (Remote Available)</p></div>
-            </motion.div>
-            <motion.div variants={infoItemVariants} className="info-item">
-              <FaEnvelope className="info-icon" />
-              <div><h4>Email:</h4><p><a href="mailto:example@example.com">your.email@example.com</a></p></div>
-            </motion.div>
-            <motion.div variants={infoItemVariants} className="info-item">
-              <FaPhone className="info-icon" />
-              <div><h4>Phone:</h4><p>+1 234 567 8900 (Optional)</p></div>
-            </motion.div>
-            {/* Animate social links container */}
-            <motion.div className="social-links" variants={containerVariants}>
-              <motion.a variants={infoItemVariants} whileHover={{ y: -3, color: 'var(--accent-primary)' }} href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><FaLinkedin /></motion.a>
-              <motion.a variants={infoItemVariants} whileHover={{ y: -3, color: 'var(--accent-primary)' }} href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><FaGithub /></motion.a>
-              <motion.a variants={infoItemVariants} whileHover={{ y: -3, color: 'var(--accent-primary)' }} href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile"><FaTwitter /></motion.a>
-            </motion.div>
-          </motion.div>
+        <motion.div variants={itemVariants} className="contact-intro">
+          <h3>Let's Connect</h3>
+          <p>
+            I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+            Feel free to reach out using the form below or through my social media channels.
+          </p>
+        </motion.div>
 
-          {/* Animate Form section */}
-          <motion.form className="contact-form" onSubmit={handleSubmit}>
-            <motion.h3>Send a Message</motion.h3>
-            {/* Stagger form elements */}
-            <motion.div className="form-row">
-              <div className={`form-group half-width floating-label ${formData.name ? 'has-value' : ''} ${focused.name ? 'is-focused' : ''} ${validFields.name === false ? 'is-invalid' : ''}`}>
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onFocus={() => setFocused({...focused, name: true})}
-                  onBlur={() => setFocused({...focused, name: false})}
-                  required
-                />
-                <label htmlFor="name">Your Name</label>
-                <motion.span 
-                  className="validation-icon"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: validFields.name === false ? 1 : 0 }}
+        <div className="contact-content">
+          <motion.div variants={itemVariants} className="contact-form-container">
+            <h3>Send Me a Message</h3>
+            
+            {formStatus.submitted && (
+              <div className="success-message">
+                <FaPaperPlane className="success-icon" />
+                <p>{formStatus.message}</p>
+              </div>
+            )}
+            
+            {!formStatus.submitted && (
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name">Your Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="John Doe"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Your Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="email@example.com"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="subject">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder="Project Inquiry"
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">Your Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    placeholder="Hi Oussama, I'd like to discuss a project idea..."
+                    rows="5"
+                  ></textarea>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  className="submit-btn"
+                  disabled={formStatus.submitting}
                 >
-                  !
-                </motion.span>
+                  {formStatus.submitting ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            )}
+          </motion.div>
+          
+          <motion.div variants={itemVariants} className="contact-info">
+            <div className="contact-card">
+              <h3>Contact Information</h3>
+              
+              <div className="contact-details">
+                <div className="contact-item">
+                  <div className="contact-icon">
+                    <FaEnvelope />
+                  </div>
+                  <div className="contact-text">
+                    <h4>Email</h4>
+                    <a href="mailto:oussamabassor@gmail.com">oussamabassor@gmail.com</a>
+                  </div>
+                </div>
+                
+                <div className="contact-item">
+                  <div className="contact-icon">
+                    <FaMapMarkerAlt />
+                  </div>
+                  <div className="contact-text">
+                    <h4>Location</h4>
+                    <p>Morocco</p>
+                  </div>
+                </div>
               </div>
               
-              <div className={`form-group half-width floating-label ${formData.email ? 'has-value' : ''} ${focused.email ? 'is-focused' : ''} ${validFields.email === false ? 'is-invalid' : ''}`}>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onFocus={() => setFocused({...focused, email: true})}
-                  onBlur={() => setFocused({...focused, email: false})}
-                  required
-                />
-                <label htmlFor="email">Your Email</label>
-                <motion.span 
-                  className="validation-icon"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: validFields.email === false ? 1 : 0 }}
-                >
-                  !
-                </motion.span>
+              <div className="social-links">
+                <h4>Find me on</h4>
+                <div className="social-icons">
+                  <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="social-icon linkedin">
+                    <FaLinkedin />
+                  </a>
+                  <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="social-icon github">
+                    <FaGithub />
+                  </a>
+                  <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="social-icon twitter">
+                    <FaTwitter />
+                  </a>
+                </div>
               </div>
-            </motion.div>
-            <motion.div className={`form-group floating-label ${formData.subject ? 'has-value' : ''} ${focused.subject ? 'is-focused' : ''} ${validFields.subject === false ? 'is-invalid' : ''}`}>
-              <input
-                id="subject"
-                type="text"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                onFocus={() => setFocused({...focused, subject: true})}
-                onBlur={() => setFocused({...focused, subject: false})}
-                required
-              />
-              <label htmlFor="subject">Subject</label>
-              <motion.span 
-                className="validation-icon"
-                initial={{ scale: 0 }}
-                animate={{ scale: validFields.subject === false ? 1 : 0 }}
-              >
-                !
-              </motion.span>
-            </motion.div>
-            <motion.div className={`form-group floating-label ${formData.message ? 'has-value' : ''} ${focused.message ? 'is-focused' : ''} ${validFields.message === false ? 'is-invalid' : ''}`}>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                onFocus={() => setFocused({...focused, message: true})}
-                onBlur={() => setFocused({...focused, message: false})}
-                rows="5"
-                required
-              ></textarea>
-              <label htmlFor="message">Your Message...</label>
-              <motion.span 
-                className="validation-icon"
-                initial={{ scale: 0 }}
-                animate={{ scale: validFields.message === false ? 1 : 0 }}
-              >
-                !
-              </motion.span>
-            </motion.div>
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              type="submit"
-              disabled={status === 'sending'}
-              className="submit-btn"
-            >
-              {status === 'sending' ? (
-                <motion.div className="loading-dots">
-                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0 }}></motion.span>
-                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.2 }}></motion.span>
-                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.4 }}></motion.span>
-                </motion.div>
-              ) : 'Send Message'}
-            </motion.button>
-            {/* Animate status message appearance */}
-            <AnimatePresence>
-              {status === 'success' && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="form-status success">Message sent successfully!</motion.div>
-              )}
-               {status === 'error' && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="form-status error">Something went wrong. Please try again.</motion.div>
-              )}
-            </AnimatePresence>
-          </motion.form>
+              
+              <div className="availability-info">
+                <h4>Current Availability</h4>
+                <div className="availability-status">
+                  <span className="status-indicator available"></span>
+                  <p>Available for freelance projects and collaborations</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="response-info">
+              <FaPaperPlane className="response-icon" />
+              <p>I typically respond within 24-48 hours</p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </motion.section>

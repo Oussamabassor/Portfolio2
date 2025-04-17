@@ -1,198 +1,239 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaReact, FaLaravel, FaNodeJs, FaJs, FaCss3 } from 'react-icons/fa';
 import './Projects.css';
-import { FaTimes } from 'react-icons/fa';
 
 const Projects = ({ closeModule }) => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [focusedCardIndex, setFocusedCardIndex] = useState(-1);
+  const [filter, setFilter] = useState('all');
+  const [activeProject, setActiveProject] = useState(null);
+
+  // Projects data
   const projects = [
     {
       id: 1,
-      title: 'E-commerce Platform', // Slightly updated title
-      category: 'web',
-      image: 'https://via.placeholder.com/400x300/1e2127/61dafb?text=Project+1', // Themed placeholder
-      description: 'A fully responsive e-commerce platform with product filtering and cart functionality.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'CSS Modules'], // Added one more tech
-      link: '#'
+      title: "PayTrack",
+      description: "A modern salary management application designed to help businesses track employee payments, generate reports, and manage payroll efficiently.",
+      longDescription: "PayTrack is a comprehensive salary management tool designed to streamline payroll processes for small to medium-sized businesses. The application features an intuitive dashboard that provides real-time financial insights, automated tax calculations, and advanced reporting tools. With role-based access control, data encryption, and audit logs, PayTrack ensures sensitive financial data remains secure while simplifying complex payroll operations.",
+      category: ["web", "app"],
+      image: "https://via.placeholder.com/800x500?text=PayTrack+Preview",
+      technologies: ["React", "Laravel", "MySQL", "Tailwind CSS"],
+      techIcons: [<FaReact />, <FaLaravel />, <FaJs />],
+      liveLink: "https://paytrack.example.com",
+      repoLink: "https://github.com/username/paytrack",
+      featured: true
     },
     {
       id: 2,
-      title: 'Secure Mobile Banking', // Slightly updated title
-      category: 'app',
-      image: 'https://via.placeholder.com/400x300/1e2127/98c379?text=Project+2', // Themed placeholder
-      description: 'A mobile banking application with secure authentication and transaction features.',
-      technologies: ['React Native', 'Firebase', 'Biometrics'], // Added one more tech
-      link: '#'
+      title: "Eldoria Games",
+      description: "A fantasy RPG-style online game store with immersive UI, user accounts, shopping cart, and payment processing.",
+      longDescription: "Eldoria Games transforms online game shopping into an immersive experience with a fantasy RPG-inspired interface. The platform features animated product listings, interactive category navigation, and personalized user accounts that track game preferences. The shopping system includes wishlists, gift options, and a streamlined checkout process with multiple payment methods. A review system with gameplay videos helps users make informed purchases.",
+      category: ["web", "ecommerce"],
+      image: "https://via.placeholder.com/800x500?text=Eldoria+Games+Preview",
+      technologies: ["Next.js", "Node.js", "MongoDB", "Firebase Auth"],
+      techIcons: [<FaReact />, <FaNodeJs />, <FaJs />],
+      liveLink: "https://eldoria-games.example.com",
+      repoLink: "https://github.com/username/eldoria-games",
+      featured: true
     },
     {
       id: 3,
-      title: 'Photographer Portfolio UI', // Slightly updated title
-      category: 'design',
-      image: 'https://via.placeholder.com/400x300/1e2127/c678dd?text=Project+3', // Themed placeholder
-      description: 'A sleek portfolio design concept for photographers showcasing their work visually.',
-      technologies: ['Figma', 'Adobe XD', 'Prototyping'], // Added one more tech
-      link: '#'
+      title: "Real Estate Booking System",
+      description: "A property booking platform for vacation homes and bungalows with search filters, booking management, and payment processing.",
+      longDescription: "This Real Estate Booking System offers a seamless experience for property owners and vacationers. The platform features advanced search filters, virtual property tours, and an intelligent recommendation engine based on user preferences. For property owners, it provides booking management tools, performance analytics, and automated messaging systems. The integrated payment system handles security deposits, staged payments, and refund processing while maintaining security and compliance.",
+      category: ["web", "app"],
+      image: "https://via.placeholder.com/800x500?text=Real+Estate+Booking+Preview",
+      technologies: ["React", "Express.js", "MySQL", "Stripe API"],
+      techIcons: [<FaReact />, <FaNodeJs />, <FaJs />],
+      liveLink: "https://realestate-booking.example.com",
+      repoLink: "https://github.com/username/realestate-booking",
+      featured: false
     },
-    // ... Add other projects similarly
+    {
+      id: 4,
+      title: "Portfolio Website",
+      description: "My personal portfolio website showcasing my projects, skills, and professional journey as a web developer.",
+      longDescription: "This portfolio website serves as a professional showcase of my work and capabilities as a web developer. Built with modern technologies and featuring smooth animations, it presents my projects in an engaging, interactive format. The site includes sections for my technical skills, project portfolio, about information, and contact details. Special attention was given to performance optimization, accessibility, and responsive design to ensure a seamless experience across all devices.",
+      category: ["web", "ui"],
+      image: "https://via.placeholder.com/800x500?text=Portfolio+Website+Preview",
+      technologies: ["React", "Framer Motion", "Tailwind CSS", "Vite"],
+      techIcons: [<FaReact />, <FaCss3 />, <FaJs />],
+      liveLink: "#",
+      repoLink: "https://github.com/username/portfolio-website",
+      featured: false
+    }
   ];
 
-  const filteredProjects = activeFilter === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeFilter);
-
-  // Variants for staggering children (cards)
-  const gridVariants = {
+  // Animation variants
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Stagger animation for cards
+        staggerChildren: 0.1,
       },
     },
   };
 
-  // Variants for individual cards
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: { type: 'spring', stiffness: 100, damping: 12 },
     },
-    exit: { // Add exit animation for filtering
-        opacity: 0,
-        y: -20,
-        scale: 0.95,
-        transition: { duration: 0.2 }
-    },
-    hover: {
-      y: -5,
-      scale: 1.02,
-      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-primary) / 50%",
-      transition: { duration: 0.2 }
-    },
-    focus: {
-      y: -5,
-      scale: 1.02,
-      boxShadow: "0 0 0 3px var(--accent-secondary)",
-      transition: { duration: 0.2 }
-    }
   };
 
-  // Variants for filter tabs container
-  const tabsVariants = {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1, transition: { duration: 0.4 } }
-  }
+  // Filter projects
+  const filteredProjects = filter === 'all' 
+    ? projects 
+    : projects.filter(project => project.category.includes(filter));
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!filteredProjects.length) return;
-      
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        setFocusedCardIndex(prev => 
-          prev < filteredProjects.length - 1 ? prev + 1 : 0
-        );
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        setFocusedCardIndex(prev => 
-          prev > 0 ? prev - 1 : filteredProjects.length - 1
-        );
-      } else if (e.key === 'Enter' && focusedCardIndex !== -1) {
-        window.open(filteredProjects[focusedCardIndex].link, '_blank');
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [filteredProjects, focusedCardIndex]);
+  // Handle project click
+  const handleProjectClick = (project) => {
+    setActiveProject(project);
+  };
 
   return (
-    <section id="projects" className="projects-module">
-      {/* NEW: Module Header */}
+    <motion.section
+      className="projects-module"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="module-header">
-        <motion.h2
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }} // Slight delay
-          className="module-title"
-        >
-          Project Showcase
-        </motion.h2>
-        {/* Close button moved inside header */}
+        <motion.h2 variants={itemVariants} className="module-title">My Projects</motion.h2>
         <button onClick={closeModule} className="close-module-btn">
           <FaTimes />
         </button>
       </div>
 
-      {/* NEW: Content Wrapper for padding and scroll */}
       <div className="module-content-area">
-        {/* Animate Filter Tabs */}
-        <motion.div
-          className="filter-tabs"
-          variants={tabsVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Buttons remain interactive */}
-          <button className={`filter-tab ${activeFilter === 'all' ? 'active' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
-          <button className={`filter-tab ${activeFilter === 'web' ? 'active' : ''}`} onClick={() => setActiveFilter('web')}>Web Apps</button>
-          <button className={`filter-tab ${activeFilter === 'app' ? 'active' : ''}`} onClick={() => setActiveFilter('app')}>Mobile Apps</button>
-          <button className={`filter-tab ${activeFilter === 'design' ? 'active' : ''}`} onClick={() => setActiveFilter('design')}>UI/UX Design</button>
+        <motion.div variants={itemVariants} className="projects-intro">
+          <h3>My Recent Work</h3>
+          <p>
+            Here's a selection of my recent projects. Each one presented unique challenges and opportunities to learn and grow as a developer.
+          </p>
         </motion.div>
 
-        {/* Animate Projects Grid */}
-        <motion.div
-          className="projects-grid"
-          variants={gridVariants}
-          initial="hidden"
-          animate="visible"
-          key={activeFilter} // Change key on filter change to re-trigger stagger
-        >
-          <AnimatePresence mode="sync"> {/* Use sync or wait */}
-            {filteredProjects.map((project, index) => (
-              // Animate each card
-              <motion.div
-                className={`project-card ${focusedCardIndex === index ? 'focused' : ''}`}
-                key={project.id} // Use unique project ID as key
-                variants={cardVariants}
-                initial="hidden" // Apply initial here if key changes trigger full re-render
-                animate={focusedCardIndex === index ? "focus" : "visible"}
-                exit="exit" // Apply exit animation
-                layout // Add layout prop for smooth filtering re-arrangement
-                whileHover="hover" // Add hover variant trigger
-                tabIndex={0}
-                onFocus={() => setFocusedCardIndex(index)}
-                onBlur={() => setFocusedCardIndex(-1)}
-              >
-                <div className="project-img-container">
-                  <img src={project.image} alt={project.title} className="project-img" />
-                  <div className="project-overlay">
-                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="view-project-link">
-                       View Project
-                     </a>
-                  </div>
+        <motion.div variants={itemVariants} className="project-filters">
+          <button 
+            className={`filter-btn ${filter === 'all' ? 'active' : ''}`} 
+            onClick={() => setFilter('all')}
+          >
+            All
+          </button>
+          <button 
+            className={`filter-btn ${filter === 'web' ? 'active' : ''}`} 
+            onClick={() => setFilter('web')}
+          >
+            Web
+          </button>
+          <button 
+            className={`filter-btn ${filter === 'app' ? 'active' : ''}`} 
+            onClick={() => setFilter('app')}
+          >
+            Apps
+          </button>
+          <button 
+            className={`filter-btn ${filter === 'ui' ? 'active' : ''}`} 
+            onClick={() => setFilter('ui')}
+          >
+            UI/UX
+          </button>
+          <button 
+            className={`filter-btn ${filter === 'ecommerce' ? 'active' : ''}`} 
+            onClick={() => setFilter('ecommerce')}
+          >
+            E-commerce
+          </button>
+        </motion.div>
+
+        <div className="projects-grid">
+          {filteredProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              className="project-card"
+              variants={itemVariants}
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              onClick={() => handleProjectClick(project)}
+            >
+              <div className="project-image-container">
+                <img src={project.image} alt={project.title} className="project-image" />
+                {project.featured && <span className="featured-badge">Featured</span>}
+              </div>
+              <div className="project-info">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
+                <div className="project-tech">
+                  {project.techIcons.map((icon, index) => (
+                    <span key={index} className="tech-icon">{icon}</span>
+                  ))}
                 </div>
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-tech">
-                    {project.technologies.map((tech, index) => (
-                      <span key={index} className="tech-badge">{tech}</span>
+                <button className="project-view-btn">View Project</button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Project Modal */}
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div 
+            className="project-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveProject(null)}
+          >
+            <motion.div 
+              className="project-modal"
+              initial={{ y: '100vh' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100vh' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="modal-close-btn"
+                onClick={() => setActiveProject(null)}
+              >
+                <FaTimes />
+              </button>
+              
+              <div className="modal-image">
+                <img src={activeProject.image} alt={activeProject.title} />
+              </div>
+              
+              <div className="modal-content">
+                <h2 className="modal-title">{activeProject.title}</h2>
+                
+                <p className="modal-description">{activeProject.longDescription}</p>
+                
+                <div className="modal-tech-stack">
+                  <h3>Technologies Used</h3>
+                  <div className="tech-tags">
+                    {activeProject.technologies.map((tech, index) => (
+                      <span key={index} className="tech-tag">{tech}</span>
                     ))}
                   </div>
                 </div>
-                <div className="keyboard-hint" aria-hidden="true">
-                  Press Enter to view
+                
+                <div className="modal-links">
+                  <a href={activeProject.liveLink} target="_blank" rel="noopener noreferrer" className="modal-link live-link">
+                    <FaExternalLinkAlt /> View Live
+                  </a>
+                  <a href={activeProject.repoLink} target="_blank" rel="noopener noreferrer" className="modal-link repo-link">
+                    <FaGithub /> View Code
+                  </a>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div> {/* End Content Wrapper */}
-    </section>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.section>
   );
 };
 

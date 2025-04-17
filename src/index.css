@@ -90,3 +90,15 @@ a {
 a:hover {
   color: var(--accent-secondary);
 }
+
+/* Fix content visibility */
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+.main-content {
+  position: relative;
+  z-index: 10; /* Higher z-index to appear above background */
+  min-height: 100vh;
+}

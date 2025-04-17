@@ -1,89 +1,35 @@
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-main); /* Ensure app background is set */
-  overflow: hidden;
-}
-
-.dashboard-main {
-  flex-grow: 1;
-  padding: 20px;
-  padding-top: 90px;
-  position: relative; /* Keep relative for absolute children */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  /* Remove overflow hidden if it was added here, App handles it */
-}
-
-.dashboard-welcome {
-  /* Ensure it doesn't interfere when module is open */
-  position: absolute; /* Keep welcome message centered */
-  text-align: center;
-  z-index: 1; /* Ensure welcome is below backdrop/panel */
-}
-
-.dashboard-welcome h1 {
-  color: var(--accent-primary);
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.dashboard-welcome p {
-  font-size: 1.2rem;
-  color: var(--text-main);
-}
-
-/* Updated Side Panel Styles for Full Width */
-.module-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: auto; /* Keep this to ensure right alignment during animation */
-  width: 100%; /* Make panel full width */
-  /* max-width: 600px; */ /* Remove max-width */
-  height: 100vh;
-  background-color: var(--bg-panel);
-  /* border-left: 1px solid var(--border-color); */ /* Remove left border */
-  border: none; /* Ensure no borders */
-  /* Adjust shadow - maybe only a bottom shadow or none */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Example: bottom shadow */
-  overflow-y: auto;
-  z-index: 100;
-  padding: 30px;
-  padding-top: 80px; /* Add padding to avoid content going under potential fixed header inside panel */
-}
-
-/* Backdrop Styles */
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* Reset some basic elements */
+html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
-  z-index: 90; /* Below panel, above main content */
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto !important; /* Force vertical scrolling */
 }
 
-
-/* Custom scrollbar for panel */
-.module-panel::-webkit-scrollbar {
-  width: 8px;
+/* App container */
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.module-panel::-webkit-scrollbar-track {
-  background: var(--bg-panel);
-  border-radius: 0; /* Adjust if needed */
+.main-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
 }
 
-.module-panel::-webkit-scrollbar-thumb {
-  background-color: var(--accent-secondary);
-  border-radius: 4px; /* Adjust if needed */
-  border: 2px solid var(--bg-panel);
-}
-
-.module-panel::-webkit-scrollbar-thumb:hover {
-  background-color: var(--accent-primary);
+/* Make sure modules are visible */
+.about-module,
+.skills-module,
+.projects-module,
+.contact-module {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 20;
 }
