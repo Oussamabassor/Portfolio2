@@ -1,24 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap');
 
+/* Theme variables */
 :root {
-  /* VSCode One Dark Pro + Dracula Hybrid Theme */
-  --bg-main: #282c34; /* Main background */
-  --bg-panel: #1e2127; /* Module/panel background */
-  --accent-primary: #61dafb; /* React blue - Highlights, links */
-  --accent-secondary: #c678dd; /* Purple - Buttons, tags, hover */
-  --text-main: #abb2bf; /* Main body text */
-  --text-header: #e06c75; /* Section titles, important labels */
-  --text-success: #98c379; /* Positive UI states */
-  --text-warning: #e5c07b; /* Icons, playful elements */
-  --text-code: #56b6c2; /* Code highlights, badges */
-  --border-color: #4b5263; /* Subtle borders */
+  /* Default dark theme */
+  --bg-main: #1e1e1e;
+  --bg-panel: #252526;
+  --border-color: #3c3c3c;
+  --text-main: #d4d4d4;
+  --text-secondary: #a7a7a7;
+  --accent-primary: #61dafb;
+  --accent-secondary: #c678dd;
+  
+  /* VSCode-specific variables */
+  --vscode-bg: #1e1e1e;
+  --vscode-editor-bg: #1e1e1e;
+  --vscode-sidebar: #252526; 
+  --vscode-border: #3c3c3c;
+  --vscode-tab-active: #1e1e1e;
+  --vscode-tab-inactive: #2d2d2d;
+  --vscode-text: #d4d4d4;
+  --vscode-comment: #6a9955;
+  --vscode-keyword: #569cd6;
+  --vscode-string: #ce9178;
+  --vscode-property: #9cdcfe;
+  --vscode-function: #dcdcaa;
+  --vscode-status-bar: #007acc;
+}
 
-  /* Typography */
-  --font-primary: 'Inter', sans-serif;
-  --font-code: 'JetBrains Mono', monospace;
-
-  /* Transitions */
-  --transition-speed: 0.3s;
+/* Light theme variables - Enhanced contrast for better text visibility */
+[data-theme="light"] {
+  /* Core colors - better contrast */
+  --bg-main: #f5f5f5;
+  --bg-panel: #ffffff;
+  --border-color: #d0d0d0; /* Darker border */
+  --text-main: #222222; /* Much darker for better readability */
+  --text-secondary: #444444; /* Darker secondary text */
+  --accent-primary: #0066b8; /* VSCode's standard blue */
+  --accent-secondary: #8c2eb8; /* Darker purple for contrast */
+  
+  /* VSCode light theme - better contrast */
+  --vscode-bg: #f5f5f5;
+  --vscode-editor-bg: #ffffff;
+  --vscode-sidebar: #f3f3f3;
+  --vscode-border: #d9d9d9; /* Darker for visibility */
+  --vscode-tab-active: #ffffff;
+  --vscode-tab-inactive: #ececec;
+  --vscode-text: #222222; /* Darker for better readability */
+  --vscode-comment: #007700; /* Darker green comment */
+  --vscode-keyword: #0000cc; /* VSCode's keyword blue */
+  --vscode-string: #a31515; /* VSCode's string red */
+  --vscode-property: #0055aa; /* Darker blue property */
+  --vscode-function: #6a5125; /* Darker function color */
+  --vscode-status-bar: #0066b8; /* Standard VSCode blue */
 }
 
 * {

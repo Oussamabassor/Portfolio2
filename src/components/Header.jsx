@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import './Header.css';
 import { 
@@ -8,14 +8,17 @@ import {
   FaFolder,
   FaSearch,
   FaGithub,
-  FaCog,
+  FaSun,
+  FaMoon,
   FaUserAlt,
   FaChevronDown
 } from 'react-icons/fa';
+import { ThemeContext } from '../context/ThemeContext';
 
 const Header = ({ setActiveModule }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
   
   // Add scroll detection
   useEffect(() => {
@@ -47,7 +50,6 @@ const Header = ({ setActiveModule }) => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      {/* VSCode-style top bar */}
       <div className="vscode-header">
         {/* Left side - Logo and menu */}
         <div className="header-left">
@@ -89,8 +91,12 @@ const Header = ({ setActiveModule }) => {
           <div className="header-icon">
             <FaGithub />
           </div>
-          <div className="header-icon">
-            <FaCog />
+          <div 
+            className="header-icon theme-toggle"
+            onClick={toggleTheme}
+            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
           </div>
           <div className="header-icon user-icon">
             <FaUserAlt />
@@ -121,6 +127,10 @@ const Header = ({ setActiveModule }) => {
         <div className="mobile-menu-item" onClick={() => handleNavClick('contact')}>
           <FaUserAlt className="mobile-menu-icon" />
           <span>Contact</span>
+        </div>
+        <div className="mobile-menu-item" onClick={toggleTheme}>
+          {darkMode ? <FaSun className="mobile-menu-icon" /> : <FaMoon className="mobile-menu-icon" />}
+          <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>
         </div>
       </div>
     </motion.header>

@@ -1,0 +1,689 @@
+/* VSCode Theme Colors Override */
+
+/* Terminal should stay dark even in light mode */
+[data-theme="light"] .terminal-body {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+[data-theme="light"] .terminal-header {
+  background-color: #323233;
+  color: #cccccc;
+}
+
+/* Status bar transition */
+[data-theme="light"] .status-bar {
+  background-color: #007acc; /* Match VSCode's blue status bar */
+}
+
+/* Code highlighting in light mode - Improved contrast */
+[data-theme="light"] .code-line.comment {
+  color: #007700; /* Darker green for better contrast */
+}
+
+[data-theme="light"] .property {
+  color: #0055aa; /* Deeper blue for better visibility */
+}
+
+[data-theme="light"] .string {
+  color: #a31515; /* Keep VSCode's string red */
+}
+
+[data-theme="light"] .keyword {
+  color: #0000cc; /* VSCode's keyword blue */
+}
+
+[data-theme="light"] .function {
+  color: #6a5125; /* Slightly darker for better contrast */
+}
+
+/* Text and Content - Enhanced Visibility */
+[data-theme="light"] body {
+  color: #222222; /* Near-black text for maximum contrast */
+}
+
+[data-theme="light"] h1, 
+[data-theme="light"] h2, 
+[data-theme="light"] h3, 
+[data-theme="light"] h4 {
+  color: #222222; /* Darker headers for better readability */
+}
+
+[data-theme="light"] p, 
+[data-theme="light"] span, 
+[data-theme="light"] li {
+  color: #333333; /* Very dark gray for paragraph text */
+}
+
+/* Links and Navigation - Better Visibility */
+[data-theme="light"] a, 
+[data-theme="light"] .file, 
+[data-theme="light"] .menu-item {
+  color: #0066b8; /* VSCode link blue - darker for contrast */
+}
+
+[data-theme="light"] .nav-link, 
+[data-theme="light"] .file a, 
+[data-theme="light"] .project-link {
+  color: #0066b8; /* VSCode link blue */
+  text-decoration: none;
+}
+
+[data-theme="light"] .nav-link:hover, 
+[data-theme="light"] a:hover, 
+[data-theme="light"] .file a:hover {
+  color: #0088e2; /* Lighter blue on hover */
+  text-decoration: underline;
+}
+
+/* Page-Specific Improvements */
+
+/* About Page */
+[data-theme="light"] .profile-name {
+  color: #0066b8; /* VSCode blue for names */
+}
+
+[data-theme="light"] .profile-title {
+  color: #333333; /* Darker text for job titles */
+}
+
+[data-theme="light"] .section-title {
+  color: #222222; /* Near-black for section titles */
+  font-weight: 600;
+}
+
+[data-theme="light"] .accent-icon {
+  color: #0066b8; /* VSCode blue for accent icons */
+}
+
+/* Skills Page */
+[data-theme="light"] .skill-category h3 {
+  color: #0066b8; /* VSCode blue for category headings */
+}
+
+[data-theme="light"] .skill-name {
+  color: #333333; /* Darker for skill names */
+  font-weight: 500;
+}
+
+[data-theme="light"] .skill-level {
+  color: #0066b8; /* VSCode blue for percentages */
+  font-weight: 600;
+}
+
+[data-theme="light"] .skill-bar-bg {
+  background-color: #e5e5e5; /* Lighter background for bars */
+}
+
+/* Projects Page */
+[data-theme="light"] .project-title,
+[data-theme="light"] .project-header h3 {
+  color: #0066b8; /* VSCode blue for project names */
+  font-weight: 600;
+}
+
+[data-theme="light"] .project-subtitle,
+[data-theme="light"] .project-desc {
+  color: #333333; /* Dark gray for descriptions */
+}
+
+[data-theme="light"] .view-details-btn {
+  color: #0066b8; /* VSCode blue for buttons */
+  border-color: #0066b8;
+}
+
+[data-theme="light"] .view-details-btn:hover {
+  background-color: rgba(0, 102, 184, 0.1);
+}
+
+/* Contact Page */
+[data-theme="light"] .contact-title {
+  color: #0066b8; /* VSCode blue */
+}
+
+[data-theme="light"] form label {
+  color: #333333; /* Dark labels */
+  font-weight: 500;
+}
+
+[data-theme="light"] input, 
+[data-theme="light"] textarea {
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  color: #222222;
+}
+
+[data-theme="light"] input:focus, 
+[data-theme="light"] textarea:focus {
+  border-color: #0066b8;
+  box-shadow: 0 0 0 2px rgba(0, 102, 184, 0.2);
+}
+
+/* VSCode Explorer and Editor Elements */
+[data-theme="light"] .vscode-layout {
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+[data-theme="light"] .editor-content {
+  background-color: #ffffff;
+  color: #222222;
+}
+
+[data-theme="light"] .file.active {
+  background-color: rgba(0, 102, 184, 0.15);
+  color: #0066b8;
+  font-weight: 500;
+}
+
+[data-theme="light"] .file-icon {
+  color: #0066b8;
+}
+
+[data-theme="light"] .folder-name {
+  color: #333333;
+  font-weight: 500;
+}
+
+/* IMPROVED HEADER STYLING */
+
+/* Header - Light Mode */
+[data-theme="light"] .header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .vscode-header {
+  background-color: #ffffff;
+  height: 40px; /* Slightly taller for better proportions */
+}
+
+/* Logo improvements */
+[data-theme="light"] .logo {
+  padding: 0 5px;
+}
+
+[data-theme="light"] .logo-icon {
+  background: linear-gradient(135deg, #0066b8, #8c2eb8);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .logo-text {
+  color: #111111;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+[data-theme="light"] .logo-dot {
+  color: #0066b8;
+}
+
+/* Menu items */
+[data-theme="light"] .menu-item {
+  color: #444444;
+  font-weight: 500;
+  position: relative;
+  height: 40px;
+}
+
+[data-theme="light"] .menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: #0066b8;
+}
+
+[data-theme="light"] .menu-item:hover span::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0066b8;
+}
+
+/* Tabs */
+[data-theme="light"] .header-tab {
+  color: #444444;
+  background-color: #f3f3f3;
+  border-right: 1px solid #e0e0e0;
+  font-weight: 500;
+}
+
+[data-theme="light"] .header-tab.active {
+  background-color: #ffffff;
+  color: #333333;
+  border-top: 2px solid #0066b8;
+  font-weight: 600;
+}
+
+[data-theme="light"] .tab-icon {
+  color: #0066b8;
+}
+
+[data-theme="light"] .tab-close {
+  color: #777777;
+}
+
+[data-theme="light"] .tab-close:hover {
+  color: #333333;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+/* Header icons */
+[data-theme="light"] .header-icon {
+  color: #555555;
+}
+
+[data-theme="light"] .header-icon:hover {
+  color: #0066b8;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .theme-toggle svg {
+  color: #e9950c; /* More vibrant sun color */
+}
+
+[data-theme="light"] .user-icon {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+}
+
+/* Header - Dark Mode improvements */
+.header {
+  background-color: #252526;
+  border-bottom: 1px solid #1e1e1e;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  height: 40px;
+}
+
+.vscode-header {
+  height: 40px;
+}
+
+.logo-icon {
+  background: linear-gradient(135deg, #61dafb, #c678dd);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.logo-text {
+  letter-spacing: -0.2px;
+}
+
+.header-tab {
+  font-weight: 500;
+}
+
+.header-tab.active {
+  font-weight: 600;
+}
+
+.tab-icon {
+  margin-right: 6px;
+}
+
+.tab-close {
+  padding: 0 6px;
+  border-radius: 3px;
+}
+
+.header-icon {
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle svg {
+  color: #c1c1c1;
+}
+
+/* Mobile menu button improvements */
+[data-theme="light"] .mobile-toggle {
+  color: #333333;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="light"] .mobile-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #0066b8;
+}
+
+/* Terminal Output - Keep good contrast */
+[data-theme="light"] .file.institution,
+[data-theme="light"] .file.project,
+[data-theme="light"] .file.frontend,
+[data-theme="light"] .file.backend,
+[data-theme="light"] .file.tools {
+  color: #d4d4d4; /* Keep light text on dark terminal background */
+}
+
+/* Improved UI Components */
+[data-theme="light"] .about-section,
+[data-theme="light"] .skills-section,
+[data-theme="light"] .project-card,
+[data-theme="light"] .fun-facts-section {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+[data-theme="light"] .fun-facts-list li {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+[data-theme="light"] .fun-icon {
+  color: #0066b8;
+}
+
+/* Button Improvements */
+[data-theme="light"] .primary-btn {
+  background: #0066b8;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 102, 184, 0.2);
+  font-weight: 600;
+}
+
+[data-theme="light"] .secondary-btn {
+  border-color: #0066b8;
+  color: #0066b8;
+  font-weight: 500;
+}
+
+[data-theme="light"] .primary-btn:hover {
+  background: #005ba2;
+}
+
+[data-theme="light"] .secondary-btn:hover {
+  background-color: rgba(0, 102, 184, 0.1);
+}
+
+/* Mobile Improvements */
+[data-theme="light"] .mobile-menu {
+  background-color: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+}
+
+[data-theme="light"] .mobile-menu-item {
+  color: #333333;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+[data-theme="light"] .mobile-menu-icon {
+  color: #0066b8;
+}
+
+/* ENHANCED MODERN TERMINAL STYLING */
+.modern-terminal {
+  max-width: 800px;
+  margin: 40px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 
+    rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px,
+    rgba(0, 0, 0, 0.4) 0px 8px 5px;
+  border: 1px solid rgba(80, 80, 80, 0.7);
+  background-color: #282a36;
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.modern-terminal:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    rgba(0, 0, 0, 0.35) 0px 25px 45px,
+    rgba(0, 0, 0, 0.28) 0px 20px 15px,
+    rgba(0, 0, 0, 0.5) 0px 10px 8px;
+}
+
+/* Terminal Header with gradient effect */
+.modern-terminal-header {
+  background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  height: 38px;
+  position: relative;
+}
+
+.modern-terminal-header:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Improved terminal dots with sheen effect */
+.terminal-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dot:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 5px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.red {
+  background: linear-gradient(135deg, #ff5f57, #e0443e);
+}
+
+.yellow {
+  background: linear-gradient(135deg, #ffbd2e, #e0a828);
+}
+
+.green {
+  background: linear-gradient(135deg, #27c93f, #1aad29);
+}
+
+.terminal-title {
+  margin-left: 20px;
+  color: #cccccc;
+  font-size: 14px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  flex: 1;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* Terminal Body with texture and scan lines */
+.modern-terminal-body {
+  padding: 22px 20px;
+  background-color: #282a36;
+  color: #f8f8f2;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.modern-terminal-body:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Terminal lines with authentic styling */
+.terminal-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.prompt {
+  color: #50fa7b;
+  margin-right: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(80, 250, 123, 0.4);
+}
+
+.directory {
+  color: #8be9fd;
+  margin-right: 10px;
+  text-shadow: 0 0 2px rgba(139, 233, 253, 0.4);
+}
+
+.branch {
+  color: #bd93f9;
+  margin-right: 10px;
+  text-shadow: 0 0 2px rgba(189, 147, 249, 0.4);
+}
+
+.command {
+  color: #f8f8f2;
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: #f8f8f2;
+  animation: cursor 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Enhanced output section */
+.terminal-output {
+  background-color: rgba(0, 0, 0, 0.25);
+  margin: 15px 0;
+  border-radius: 6px;
+  padding: 15px;
+  position: relative;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation with improved styling */
+.terminal-navigation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.terminal-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #f8f8f2;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-nav-item.active {
+  background-color: rgba(80, 250, 123, 0.1);
+  border-color: rgba(80, 250, 123, 0.3);
+  box-shadow: 0 0 10px rgba(80, 250, 123, 0.1);
+}
+
+.terminal-nav-item.active:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #50fa7b;
+}
+
+.nav-icon {
+  color: #bd93f9;
+  margin-right: 12px;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.terminal-nav-item:hover .nav-icon {
+  transform: scale(1.2);
+  color: #8be9fd;
+}
+
+.terminal-nav-item.active .nav-icon {
+  color: #50fa7b;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .modern-terminal {
+    max-width: 95%;
+    margin: 20px auto;
+  }
+  
+  .terminal-navigation {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-navigation {
+    grid-template-columns: 1fr;
+  }
+  
+  .modern-terminal-body {
+    padding: 15px;
+  }
+}

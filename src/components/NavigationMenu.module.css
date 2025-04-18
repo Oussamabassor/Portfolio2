@@ -1,0 +1,142 @@
+.modernTerminal {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: #282a36;
+  border: 1px solid rgba(60, 60, 60, 0.6);
+  z-index: 100;
+  position: relative;
+}
+
+.modernTerminalHeader {
+  background-color: #1e1e1e;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  height: 40px;
+}
+
+.terminalDots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: opacity 0.2s ease;
+}
+
+.red {
+  background-color: #ff5f56;
+}
+
+.yellow {
+  background-color: #ffbd2e;
+}
+
+.green {
+  background-color: #27c93f;
+}
+
+.terminalTitle {
+  margin-left: 20px;
+  color: #cccccc;
+  font-size: 14px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+}
+
+.modernTerminalBody {
+  padding: 20px;
+  background-color: #282a36;
+  color: #f8f8f2;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Terminal line styles */
+.terminalLine {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.prompt {
+  color: #50fa7b;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.directory {
+  color: #8be9fd;
+  margin-right: 10px;
+}
+
+.branch {
+  color: #bd93f9;
+  margin-right: 10px;
+}
+
+.cursorBlink {
+  display: inline-block;
+  width: 8px;
+  height: 18px;
+  background-color: #f8f8f2;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Navigation styles */
+.terminalOutput {
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 15px 0;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.terminalNavigation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.terminalNavItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 4px;
+  color: #f8f8f2;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.terminalNavItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.terminalNavItem.active {
+  background-color: rgba(80, 250, 123, 0.1);
+  border-left: 3px solid #50fa7b;
+}
+
+.navIcon {
+  color: #bd93f9;
+  margin-right: 10px;
+  font-size: 16px;
+}

@@ -5,19 +5,46 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #1e1e1e; /* VSCode dark background */
-  color: #d4d4d4; /* VSCode text color */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--vscode-bg);
+  color: var(--vscode-text);
+  font-family: var(--font-primary);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
 }
 
 .header.scrolled {
-  background-color: rgba(30, 30, 30, 0.95); /* Slightly transparent when scrolled */
+  background-color: rgba(var(--vscode-bg-rgb, 30, 30, 30), 0.95);
   backdrop-filter: blur(10px);
 }
 
-/* Main header layout */
+/* Theme toggle styling */
+.theme-toggle {
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(30deg);
+}
+
+[data-theme="light"] .theme-toggle svg {
+  color: #ff9500;
+}
+
+[data-theme="dark"] .theme-toggle svg {
+  color: #c1c1c1;
+}
+
+/* Transition for theme changes */
+body, .header, .app, .welcome-container, .about-module, 
+.skills-module, .projects-module, .contact-module,
+.vscode-header, .explorer-sidebar, .editor-area,
+.editor-tab, .status-bar, .file, .folder-name,
+.code-editor, .terminal-window {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* The rest of the header CSS remains the same but uses variables */
 .vscode-header {
   display: flex;
   align-items: center;
