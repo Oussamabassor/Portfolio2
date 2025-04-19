@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section id="home" className="hero">
       <div className="container hero-content">
-        <h1>Hello, I'm <span>Your Name</span></h1>
+        <h1>Hello, I'm <span>Oussama bassor</span></h1>
         <p>Frontend Developer & UI/UX Designer</p>
         <div className="hero-buttons">
           <a href="#projects"><button>View My Work</button></a>

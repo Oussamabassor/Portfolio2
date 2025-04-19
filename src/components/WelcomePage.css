@@ -1,239 +1,415 @@
-/* Welcome Container */
-.welcome-container {
+/* VS Code Inspired Developer Terminal - Enhanced */
+
+:root {
+  /* Base theme system - completely revamped */
+  --surface-1: #1e1e1e;
+  --surface-2: #252526;
+  --surface-3: #2d2d2d;
+  --surface-4: #333333;
+  --primary: #0078d4;
+  --primary-darker: #0066b5;
+  --primary-lighter: #3794ff;
+  --accent-1: #c586c0;
+  --accent-2: #4ec9b0;
+  --accent-3: #dcdcaa;
+  --text-primary: #d4d4d4;
+  --text-secondary: #a0a0a0;
+  --text-accent: #ffffff;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  
+  /* Professional code highlighting */
+  --code-keyword: #569cd6;
+  --code-function: #dcdcaa;
+  --code-string: #ce9178;
+  --code-number: #b5cea8;
+  --code-comment: #6a9955;
+  --code-class: #4ec9b0;
+  --code-operator: #d4d4d4;
+  --code-parameter: #9cdcfe;
+  --code-decorator: #c586c0;
+  --code-type: #4ec9b0;
+  --code-regex: #d16969;
+  --code-namespace: #4ec9b0;
+  
+  /* IDE components */
+  --ide-bg: var(--surface-1);
+  --ide-editor: var(--surface-1);
+  --ide-sidebar: var(--surface-2);
+  --ide-titlebar: var(--surface-2);
+  --ide-tab-active: var(--surface-1);
+  --ide-tab-inactive: var(--surface-3);
+  --ide-statusbar: var(--primary);
+  --ide-activity-badge: #cc6633;
+  
+  /* Terminal styling */
+  --terminal-selection-bg: rgba(82, 130, 192, 0.3);
+  --terminal-cursor: #aeafad;
+  --terminal-command-prompt: #8ec07c;
+  
+  /* Polished effects */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.4), 0 5px 10px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  --glow-subtle: 0 0 8px rgba(55, 148, 255, 0.25);
+  --glow-strong: 0 0 15px rgba(55, 148, 255, 0.4);
+  
+  /* Refined transitions */
+  --transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-standard: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-emphasis: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Modern interactions */
+  --hover-intensity: 1.08;
+  --active-intensity: 0.95;
+  
+  /* Professional typography */
+  --font-code: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-ui: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 15px;
+  --font-size-xl: 18px;
+  
+  /* Line heights */
+  --line-height-code: 1.6;
+  --line-height-ui: 1.5;
+  --line-height-loose: 1.7;
+}
+
+[data-theme='light'] {
+  --surface-1: #ffffff;
+  --surface-2: #f3f3f3;
+  --surface-3: #e8e8e8;
+  --surface-4: #dddddd;
+  --primary: #0066b5;
+  --primary-darker: #005494;
+  --primary-lighter: #1a85ff;
+  --accent-1: #af00db;
+  --accent-2: #098658;
+  --accent-3: #795e26;
+  --text-primary: #333333;
+  --text-secondary: #6c6c6c;
+  --text-accent: #ffffff;
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-strong: rgba(0, 0, 0, 0.18);
+  
+  /* Professional code highlighting light mode */
+  --code-keyword: #0000ff;
+  --code-function: #795e26;
+  --code-string: #a31515;
+  --code-number: #098658;
+  --code-comment: #008000;
+  --code-class: #267f99;
+  --code-operator: #333333;
+  --code-parameter: #0070c1;
+  --code-decorator: #af00db;
+  --code-type: #267f99;
+  --code-regex: #ee0000;
+  --code-namespace: #267f99;
+  
+  /* IDE components light mode */
+  --ide-bg: var(--surface-1);
+  --ide-editor: var(--surface-1);
+  --ide-sidebar: var(--surface-2);
+  --ide-titlebar: var(--surface-2);
+  --ide-tab-active: var(--surface-1);
+  --ide-tab-inactive: var(--surface-3);
+  --ide-statusbar: var(--primary);
+  --ide-activity-badge: #cc6633;
+  
+  /* Terminal styling light mode */
+  --terminal-selection-bg: rgba(0, 102, 184, 0.2);
+  --terminal-cursor: #666666;
+  --terminal-command-prompt: #098658;
+  
+  /* Polished effects light mode */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  --glow-subtle: 0 0 8px rgba(0, 102, 184, 0.2);
+  --glow-strong: 0 0 15px rgba(0, 102, 184, 0.3);
+}
+
+/* Terminal with Profile Section - Professional IDE Layout */
+.terminal-with-profile {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 30px;
   width: 100%;
-  min-height: calc(100vh - 70px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+}
+
+/* Professionally Enhanced Terminal Card */
+.terminal-card.dev-edition {
   position: relative;
-}
-
-.welcome-content {
-  width: 100%;
-  max-width: 800px;
-  z-index: 1;
-}
-
-/* Terminal Card */
-.terminal-card {
-  background-color: rgba(40, 42, 54, 0.85);
-  border-radius: 8px;
+  border-radius: 6px;
+  background: var(--ide-editor);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  transition: transform var(--transition-standard), box-shadow var(--transition-standard);
 }
 
-.terminal-card:hover {
-  box-shadow: 
-    0 25px 65px rgba(0, 0, 0, 0.5),
-    0 15px 35px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  transform: translateY(-5px);
+.terminal-card.dev-edition:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--glow-subtle);
 }
 
-/* Terminal Header */
+/* Refined Professional IDE Header */
 .terminal-header {
-  background-color: #191a21;
-  padding: 0 16px;
   height: 38px;
+  background: var(--ide-titlebar);
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Professional Tab Bar */
+.editor-tabs {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.editor-tab {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 14px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-ui);
+  color: var(--text-secondary);
+  background-color: var(--ide-tab-inactive);
+  cursor: pointer;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.editor-tab.active {
+  color: var(--text-primary);
+  background-color: var(--ide-tab-active);
   position: relative;
 }
 
+.editor-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+}
+
+/* Terminal Controls - Refined */
 .terminal-controls {
   display: flex;
   gap: 8px;
+  margin-right: 14px;
 }
 
 .control {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  transition: transform 0.2s ease;
+  position: relative;
+  opacity: 0.8;
+  transition: all var(--transition-fast);
 }
 
 .control:hover {
+  opacity: 1;
   transform: scale(1.1);
 }
 
-.red {
-  background-color: #ff5f56;
+.control:nth-child(1) {
+  background: #ff5f57;
+  box-shadow: var(--shadow-inner);
+}
+.control:nth-child(2) {
+  background: #febc2e;
+  box-shadow: var(--shadow-inner);
+}
+.control:nth-child(3) {
+  background: #28c840;
+  box-shadow: var(--shadow-inner);
 }
 
-.yellow {
-  background-color: #ffbd2e;
-}
-
-.green {
-  background-color: #27c93f;
-}
-
-.terminal-title {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  left: 0;
-  color: rgba(248, 248, 242, 0.6);
-  font-size: 14px;
-  font-family: 'SF Mono', 'Fira Code', 'Menlo', 'Courier New', monospace;
-  pointer-events: none;
-}
-
-/* Terminal Content */
+/* Terminal Content - Auto Height, No Scroll */
 .terminal-content {
-  padding: 20px 25px;
-  color: #f8f8f2;
-  font-family: 'SF Mono', 'Fira Code', 'Menlo', 'Courier New', monospace;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* Terminal Lines */
-.terminal-line {
   display: flex;
-  margin-bottom: 15px;
-  align-items: center;
+  position: relative;
+  background-color: var(--ide-editor);
+  overflow: hidden;
+  height: 450px;
 }
 
-.prompt {
-  color: #50fa7b;
-  margin-right: 10px;
-}
-
-.command {
-  color: #f8f8f2;
-}
-
-/* Name Display */
-.name-display {
-  margin: 20px 0 30px 20px;
-}
-
-.name {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #bd93f9;
-  margin-bottom: 5px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.5px;
-  text-shadow: 0 0 20px rgba(189, 147, 249, 0.2);
-}
-
-.role {
-  font-size: 1.3rem;
-  color: #8be9fd;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.3px;
-}
-
-/* Cursor */
-.cursor, .cursor-blink {
-  display: inline-block;
-  width: 10px;
-  height: 20px;
-  background-color: #f8f8f2;
-  margin-left: 5px;
-  border-radius: 1px;
-  animation: blink 1s step-end infinite;
-  vertical-align: middle;
-}
-
-@keyframes blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-/* Terminal Output */
-.terminal-output {
-  margin: 15px 0 25px 20px;
-  background-color: rgba(40, 42, 54, 0.4);
-  border-radius: 4px;
-  padding: 2px;
-  border-left: 2px solid #50fa7b;
-}
-
-.file-list {
-  margin: 10px 0;
-}
-
-.file {
-  display: grid;
-  grid-template-columns: 100px 100px 1fr;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #f8f8f2;
-}
-
-.file:hover {
-  background-color: rgba(80, 250, 123, 0.1);
-}
-
-.file-info {
-  color: #6272a4;
-  font-size: 13px;
-}
-
-.file-name {
-  color: #50fa7b;
-  font-weight: 500;
-}
-
-.file-desc {
-  color: #f8f8f2;
-  opacity: 0.7;
-}
-
-/* Social Links */
-.social-links {
-  margin: 15px 0 25px 20px;
+.line-numbers {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  padding: 12px 0;
+  background-color: var(--ide-sidebar);
+  width: 50px;
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid var(--border-subtle);
 }
 
-.social-links a {
-  color: #8be9fd;
-  text-decoration: none;
+.line-numbers span {
+  padding: 0 10px 0 0;
+  height: 22px;
+  font-family: var(--font-code);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* Code Content Area with Professional Syntax Highlighting */
+.code-content {
+  flex: 1;
+  padding: 12px 10px;
+  font-family: var(--font-code);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-code);
+  overflow: hidden;
+  background-color: var(--ide-editor);
+}
+
+/* Terminal Lines - Professional Styling */
+.terminal-line {
+  display: flex;
+  height: 22px;
+  position: relative;
+  padding-left: 15px;
+  font-family: var(--font-code);
+  opacity: 1;
+  white-space: pre;
+}
+
+/* Code Block line styles */
+.code-block {
+  margin: 6px 0;
+  padding: 8px 0;
+  border-radius: 4px;
+  background-color: var(--surface-3);
+  position: relative;
+}
+
+.code-block::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--primary);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+/* IDE-like status bar */
+.terminal-footer {
+  height: 24px;
+  background-color: var(--ide-statusbar);
+  color: var(--text-accent);
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-ui);
+  user-select: none;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.footer-left, .footer-right {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 8px;
+  transition: background-color var(--transition-fast);
+  gap: 5px;
+}
+
+.footer-item:hover {
+  background-color: var(--primary-darker);
+}
+
+.footer-item.interactive {
+  cursor: pointer;
+}
+
+.footer-separator {
+  width: 1px;
+  height: 60%;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0 2px;
+}
+
+/* Professional IDE-like profile card */
+.dev-profile-card {
+  background: var(--surface-2);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-standard), box-shadow var(--transition-standard);
+}
+
+.dev-profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--glow-subtle);
+}
+
+/* Improved tech tags styling */
+.tech-tag {
+  background: var(--surface-1);
+  color: var(--primary);
+  padding: 4px 10px;
   border-radius: 4px;
-  transition: all 0.2s ease;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-code);
+  border: 1px solid var(--primary);
+  transition: all var(--transition-standard);
+  position: relative;
+  overflow: hidden;
 }
 
-.social-links a:hover {
-  background-color: rgba(139, 233, 253, 0.1);
-  transform: translateX(5px);
+.tech-tag:hover {
+  background: var(--primary);
+  color: var(--text-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
-.prompt-line {
-  margin-top: 20px;
+.tech-tag::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1), rgba(255,255,255,0) 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 }
 
-/* Responsive Styles */
-@media (max-width: 600px) {
-  .name {
-    font-size: 2rem;
-  }
-  
-  .role {
-    font-size: 1.1rem;
-  }
-  
-  .file {
-    grid-template-columns: 80px 80px 1fr;
-    font-size: 13px;
-    padding: 6px 10px;
-  }
+.tech-tag:hover::after {
+  transform: translateX(100%);
 }

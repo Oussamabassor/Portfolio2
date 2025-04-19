@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './BackgroundEffect.css';
 
-const BackgroundEffect = () => {
+const BackgroundEffect = ({ darkMode = true }) => {
   const canvasRef = useRef(null);
   
   useEffect(() => {
@@ -34,15 +34,25 @@ const BackgroundEffect = () => {
       }
     };
     
-    // Get random color from theme palette
+    // Get random color based on theme
     const getRandomColor = () => {
-      const colors = [
+      const darkColors = [
         'rgba(139, 233, 253, 0.7)',  // Cyan
         'rgba(80, 250, 123, 0.7)',   // Green
         'rgba(255, 121, 198, 0.7)',  // Pink
         'rgba(189, 147, 249, 0.7)',  // Purple
         'rgba(241, 250, 140, 0.7)',  // Yellow
       ];
+      
+      const lightColors = [
+        'rgba(0, 152, 189, 0.5)',    // Cyan
+        'rgba(0, 179, 104, 0.5)',    // Green
+        'rgba(201, 59, 126, 0.5)',   // Pink
+        'rgba(124, 67, 189, 0.5)',   // Purple
+        'rgba(173, 148, 8, 0.5)',    // Yellow
+      ];
+      
+      const colors = darkMode ? darkColors : lightColors;
       return colors[Math.floor(Math.random() * colors.length)];
     };
     
@@ -51,6 +61,9 @@ const BackgroundEffect = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Draw radial gradient background
+      const bgColor1 = darkMode ? '#24283b' : '#f5f5f7';
+      const bgColor2 = darkMode ? '#1a1b26' : '#e5e5e7';
+      
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
         canvas.height / 2, 
@@ -59,8 +72,8 @@ const BackgroundEffect = () => {
         canvas.height / 2, 
         canvas.width / 1.5
       );
-      gradient.addColorStop(0, '#24283b');
-      gradient.addColorStop(1, '#1a1b26');
+      gradient.addColorStop(0, bgColor1);
+      gradient.addColorStop(1, bgColor2);
       
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -95,8 +108,12 @@ const BackgroundEffect = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
           
           if (distance < 150) {
+            const lineColor = darkMode ? 
+              `rgba(139, 233, 253, ${0.1 * (1 - distance / 150)})` : 
+              `rgba(0, 152, 189, ${0.07 * (1 - distance / 150)})`;
+                
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 233, 253, ${0.1 * (1 - distance / 150)})`;
+            ctx.strokeStyle = lineColor;
             ctx.lineWidth = 0.5;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -113,12 +130,17 @@ const BackgroundEffect = () => {
     window.addEventListener('resize', handleResize);
     animate();
     
+    // Update particles color when theme changes
+    particles.forEach(p => {
+      p.color = getRandomColor();
+    });
+    
     // Clean up
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [darkMode]); // Re-run effect when darkMode changes
   
   return <canvas ref={canvasRef} className="background-canvas" />;
 };
